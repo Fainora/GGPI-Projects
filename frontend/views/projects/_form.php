@@ -20,7 +20,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'image')->widget(FileInput::classname(), [ 
     'options' => ['accept' => 'image/*'],
-    ]);?>
+    ]);?> 
     <?= $form->field($model, 'number')->textInput() ?>
 
     <div class="form-group">
