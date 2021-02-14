@@ -4,6 +4,8 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use yii\web\UploadedFile;
+use Yii\image\drivers\Image;
 
 /**
  * Signup form
@@ -16,7 +18,7 @@ class SignupForm extends Model
     public $patronymic;
     public $email;
     public $password;
-
+    public $file;
 
     /**
      * {@inheritdoc}

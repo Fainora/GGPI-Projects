@@ -6,6 +6,9 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\helpers\Url;
+use yii\web\UploadedFile;
+use Yii\image\drivers\Image;
 
 /**
  * User model
@@ -27,7 +30,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
-
+    public $file;
 
     /**
      * {@inheritdoc}
@@ -55,8 +58,62 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['image', 'string', 'max' => 255],
+            [['file'], 'image'],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'image' => 'Картинка',
+            'file' => 'Картинка',
+            'smallImage' => 'Картинка',
+        ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if($file = UploadedFile::getInstance($this, 'file')){
+            $dir = Yii::getAlias('@images').'/user/';
+            if (!is_dir($dir . $this->image)) {
+                if (file_exists($dir . $this->image)) {
+                    unlink($dir . $this->image);
+                }
+                if (file_exists($dir . '80x80/' . $this->image)) {
+                    unlink($dir . '80x80/' . $this->image);
+                }
+            };
+            $this->image = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6) . '.' . $file->extension;
+            $file->saveAs($dir.$this->image);
+            $imag = Yii::$app->image->load($dir.$this->image);
+            $imag->background('#fff', 0);
+            $imag->resize('80','80',Image::INVERSE);
+            $imag->crop('80','80');
+            if(!file_exists($dir.'80x80/')){
+             FileHelper::createDirectory($dir.'80x80/');
+            }
+            $imag->save($dir.'80x80/'.$this->image, 90);
+           }
+           return parent::beforeSave($insert);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+    }
+
+    public function getSmallImage() 
+    {
+        if($this->image) {
+            $path = str_replace('admin.','',Url::home(true)).'uploads/user/80x80/'.$this->image;
+        } else {
+            $path = str_replace('admin.','',Url::home(true)).'uploads/user/80x80/avatar.png';
+        }
+        return $path;
+    }
+
 
     /**
      * {@inheritdoc}
@@ -209,4 +266,5 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
 }

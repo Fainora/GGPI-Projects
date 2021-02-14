@@ -14,6 +14,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Projects;
+use common\models\ProjectsTag;
+use common\models\ProjectsUser;
 
 /**
  * Site controller
@@ -31,23 +34,9 @@ class SiteController extends Controller
                 //'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['login'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['signup'],
+                        'actions' => ['login','signup', 'request-password-reset'],
                         'allow' => true,
                         'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['error'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
@@ -87,7 +76,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $projects = Projects::find()->OrderBy(['id' => SORT_DESC,])->all();
+        $tags = ProjectsTag::find()->all();
+        $members = ProjectsUser::find()->all();
+
+        return $this->render('index',compact('projects', 'tags','members'));
+    }
+
+    public function actionProject($id)
+    {
+        $projects = Projects::findOne($id);
+        
+        return $this->render('../projects/view',compact('projects'));
     }
 
     /**
@@ -149,15 +149,6 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 
     public function actionProfile()
     {
@@ -169,10 +160,6 @@ class SiteController extends Controller
         return $this->render('create');
     }
 
-    public function actionSetting()
-    {
-        return $this->render('setting');
-    }
 
     /**
      * Signs user up.
@@ -184,7 +171,7 @@ class SiteController extends Controller
         $this->layout = 'auth';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            //Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
 
@@ -200,6 +187,11 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        if (Yii::$app->user->isGuest) {
+            $this->layout = 'auth';
+        } else {
+            $this->layout = 'main';
+        }
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {

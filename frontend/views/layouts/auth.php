@@ -19,14 +19,14 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="blank">
-<?php $this->beginBody() ?>
-    <div class="wrap">
-        <?= $content ?>
-    </div>
-</div>
 
-<?php $this->endBody() ?>
+<body class="text-center">
+    
+    <div class="login">
+        <?php $this->beginBody() ?>
+            <?= $content ?>
+        <?php $this->endBody() ?>
+    </div>
 </body>
 </html>
 <?php $this->endPage() ?>

@@ -8,37 +8,33 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Авторизация';
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<h1>GGPI-Project</h1>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+<div class="form col-md-5">
+    <?php $form = ActiveForm::begin([
+            'id' => 'login-form',
+            'fieldConfig' => [
+                'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",
+            ],
+        ]); ?>
+    
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Логин'])->label(false) ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
-                </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-                <a href="<?= Url::to(["signup"]);?>"> Зарегистрироваться
-
-            <?php ActiveForm::end(); ?>
+        <?= $form->field($model, 'password')->passwordInput(['placeholder' => "Пароль"])->label(false) ?>
+        <div style="color:#808080;margin:1em 0">
+            <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
         </div>
-    </div>
+        <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить?') ?>
+
+        <div class="form-group btm">
+            <?= Html::submitButton('Войти', ['class' => 'btn btn-primary btn-md btn-block', 'name' => 'login-button']) ?>
+        </div>
+
+        <a href="<?= Url::to(["signup"]);?>"> Зарегистрироваться </a>
+
+    <?php ActiveForm::end(); ?>
 </div>
+

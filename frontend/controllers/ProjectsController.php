@@ -8,6 +8,9 @@ use common\models\ProjectsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\User;
+use common\models\ProjectsUser;
+use yii\filters\AccessControl;
 
 /**
  * ProjectsController implements the CRUD actions for Projects model.
@@ -20,6 +23,19 @@ class ProjectsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => false,
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,7 +57,8 @@ class ProjectsController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+            ],
+        );
     }
 
     /**
@@ -52,8 +69,13 @@ class ProjectsController extends Controller
      */
     public function actionView($id)
     {
+        $members = ProjectsUser::find()->all();
+        $project = $this->findProject($id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'members'=>$members,
+            'project' => $project,
         ]);
     }
 
@@ -106,7 +128,7 @@ class ProjectsController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -125,32 +147,42 @@ class ProjectsController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function beforeSave($insert)
-{
-    if ($file = UploadedFile::getInstance($this, 'file')) {
-        $dir = Yii::getAlias('@images').'/blog/';
-        if(file_exists($dir.$this->image)) {
-            unlink($dir.$this->image);
+    protected function findProject($id)
+    {
+        $project = $this->findModel($id);
+        if(!$project) {
+            throw new NotFoundHttpException("Project does not exist");
         }
-        if(file_exists($dir.'50x50/'.$this->image)) {
-            unlink($dir.'50x50/'.$this->image);
-        }
-        if(file_exists($dir.'800x/'.$this->image)) {
-            unlink($dir.'800x/'.$this->image);
-        }
-        $this->image = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6).'.'.$file->extension;
-        $file->saveAs($dir.$this->image);
-        $imag = Yii::$app->image->load($dir.$this->image);
-        $imag->background('#fff',0);
-        $imag->resize('50','50', Yii\image\drivers\Image::INVERSE);
-        $image->crop('50','50');
-        $image->save($dir.'50x50/'.$this->image, 90);
-        $image = Yii::$app->image->load($dir.$this->image);
-        $imag->background('#fff', 0);
-        $imag->resize('800',null, Yii\image\drivers\Image::INVERSE);
-        $image->save($dir.'800x/'.$this->image, 90);
+        return $project;
     }
 
-    return parent::beforeSave($insert);
-}
+    public function actionApply($id)
+    {
+        $project = $this->findProject($id);
+        $userId = Yii::$app->user->identity->id;
+        $member = $project->isMember($userId);
+        $title = "";
+
+        if(!$member) {
+            $member = new ProjectsUser();
+            $member->project_id = $project->id;
+            $member->user_id = $userId;
+            $member->save();
+        } else {
+            $member->delete();
+        }
+        return $this->renderAjax('_member', [
+            'project' => $project,
+        ]);
+    }
+
+    public function actionRequest($id)
+    {
+        $this->findModel($id);
+
+        /*return $this->render('request', [
+            'model' => $this->findModel($id),
+        ]);*/
+    }
+
 }

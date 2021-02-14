@@ -14,6 +14,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/sidebar.css',
+        'css/auth.css',
     ];
     public $js = [
         'https://use.fontawesome.com/releases/v5.0.13/js/solid.js',

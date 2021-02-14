@@ -14,5 +14,4 @@ $this->title = 'Создать проект';
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>

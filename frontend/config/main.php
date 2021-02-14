@@ -12,6 +12,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'language'=>'ru',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',           
@@ -43,6 +44,9 @@ return [
             'showScriptName' => false,
             'rules' => [
                 //'' => 'site/index',
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
     ],

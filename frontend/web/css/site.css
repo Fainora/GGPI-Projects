@@ -3,6 +3,7 @@ body {
     height: 100%;
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
+    margin: 0;
 }
 
 p {
@@ -12,9 +13,7 @@ p {
 }
 
 .wrap {
-    min-height: 100%;
     height: auto;
-    margin: 0 auto -60px;
     padding: 0 0 60px;
 }
 
@@ -23,7 +22,9 @@ p {
 }
 
 .page {
+    min-height: 100%;
     padding: 20px;
+    margin: 0 auto -50px;
 }
 
 .card {
@@ -38,8 +39,20 @@ p {
     margin: 0 20px 0 0;
 }
 
+.card-body {
+    min-height: 120px;
+}
+
 .site-contact {
     padding-left: 50px;
+}
+
+.projects-view td > img{
+    max-width: 80px;
+}
+
+.user-view td > img{
+    max-width: 80px;
 }
 
 .footer {
@@ -47,6 +60,8 @@ p {
     border-top: 1px solid #ddd;
     padding: 15px;
     text-align: right;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer p {

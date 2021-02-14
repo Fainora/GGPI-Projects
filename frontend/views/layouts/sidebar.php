@@ -21,7 +21,7 @@ use yii\helpers\Url;
             </a>
         </li>
         <li>
-            <a href="<?= Url::to(["user/view"]);?>">
+            <a href="<?= Url::toRoute(['user/view', 'id'=>Yii::$app->user->identity->id]);?>">
                 <p>
                     <i class="fas fa-briefcase"></i>
                     Профиль
@@ -36,14 +36,14 @@ use yii\helpers\Url;
                 </p>
             </a>
         </li>
-        <li>
-            <a href="<?= Url::to(["user/update"]);?>">
+        <!--<li>
+            <a href="<?//= Url::to(["user/update"]);?>">
                 <p>
                     <i class="fas fa-image"></i>
                     Настройки
                 </p>
             </a>
-        </li>
+        </li>-->
         <li>
             <a href="<?= Url::to(["site/contact"]);?>">
                 <p>

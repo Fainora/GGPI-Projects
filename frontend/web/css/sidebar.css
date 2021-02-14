@@ -42,6 +42,7 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
+    margin-left: 75px;
 }
 
 #sidebar {
@@ -49,13 +50,19 @@ span {
     max-width: 230px;
     background: #7386D5;
     color: #fff;
+    position: fixed;
+    left: 0;
+    height: 100%;
     /* transition: all 0.3s; */
 }
 
 #sidebar.active {
+    height: 100%;
     min-width: 75px;
     max-width: 75px;
     text-align: center;
+    position: fixed;
+    left: 0;
 }
 
 #sidebar.active .sidebar-header h3,
@@ -90,15 +97,6 @@ span {
 
 #sidebar.active ul ul a {
     padding: 10px !important;
-}
-
-#sidebar.active .dropdown-toggle::after {
-    top: auto;
-    bottom: 10px;
-    right: 50%;
-    -webkit-transform: translateX(50%);
-    -ms-transform: translateX(50%);
-    transform: translateX(50%);
 }
 
 #sidebar .sidebar-header {
@@ -181,7 +179,7 @@ a.article:hover {
 
 #content {
     width: 100%;
-    min-height: 100vh;
+    min-height: 86.9vh;
     /* transition: all 0.3s; */
 }
 

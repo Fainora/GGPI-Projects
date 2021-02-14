@@ -1,0 +1,46 @@
+.text-center {
+    background: #A7B6E8; /* Для старых браузров */
+    background: linear-gradient(to bottom,#A1A0DE,#9DC3EB);
+}
+
+.login {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background: rgba(239, 242, 243, 0.3);
+    border-radius: 10px;
+}
+
+.login-form {
+    width: 100%;
+    background: #fff;
+}
+
+.login h1 {
+    padding: 30px 0 30px 0;
+    color: #f0f9fc;
+    font-size: 3rem;
+}
+
+.login a {
+    color: #808080;
+    margin-top: -20px;
+}
+
+.btm {
+    margin: 6px;
+}
+
+.form {
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 20px;
+}
+
+@media(max-width:767px) {
+    .login {
+        width: 80%;
+    }
+}

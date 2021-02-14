@@ -17,7 +17,7 @@ class ProjectsSearch extends Projects
     public function rules()
     {
         return [
-            [['id', 'number'], 'integer'],
+            [['id', 'max_number', 'user_id'], 'integer'],
             [['title', 'description', 'image'], 'safe'],
         ];
     }
@@ -59,7 +59,8 @@ class ProjectsSearch extends Projects
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'number' => $this->number,
+            'max_number' => $this->max_number,
+            'user_id' => $this->user_id,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
