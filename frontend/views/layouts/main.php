@@ -25,9 +25,9 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrapper">
-    <?php echo $this->render('sidebar'); ?>
+    <?= $this->render('sidebar'); ?>
     <div id="content">
-        <?php echo $this->render('header'); ?>
+        <?= $this->render('header'); ?>
         <div class="page">
             <div class="container">
                 <?= Breadcrumbs::widget([
@@ -37,7 +37,7 @@ AppAsset::register($this);
             </div>
             <?= $content ?>
         </div>
-        <?php echo $this->render('footer'); ?>
+        <?= $this->render('footer'); ?>
     </div>
 </div>
 

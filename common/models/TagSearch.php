@@ -18,7 +18,7 @@ class TagSearch extends Tag
     {
         return [
             [['id'], 'integer'],
-            [['title'], 'safe'],
+            [['title', 'type'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class TagSearch extends Tag
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
     }

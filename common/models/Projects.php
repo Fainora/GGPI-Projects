@@ -10,6 +10,7 @@ use Yii\image\drivers\Image;
 use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecord;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "projects".
@@ -25,6 +26,7 @@ class Projects extends \yii\db\ActiveRecord
     public $tags_array;
     public $members;
     public $file;
+
     /**
      * {@inheritdoc}
      */
@@ -67,6 +69,7 @@ class Projects extends \yii\db\ActiveRecord
             'tags_array' => 'Теги',
             'tagsAsString' => 'Теги',
             'members' => 'Участники',
+            'created_at:datetime' => 'Дата создания'
         ];
     }
 
@@ -78,6 +81,7 @@ class Projects extends \yii\db\ActiveRecord
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => false
                 ],  
+                TimestampBehavior::className(),
         ];
     }
 
@@ -137,9 +141,9 @@ class Projects extends \yii\db\ActiveRecord
     public function getSmallImage() 
     {
         if($this->image) {
-            $path = str_replace('admin.','',Url::home(true)).'uploads/projects/80x80/'.$this->image;
+            $path = str_replace('admin', '', Url::home(true)).'uploads/projects/80x80/'.$this->image;
         } else {
-            $path = str_replace('admin.','',Url::home(true)).'uploads/projects/80x80/no_image.png';
+            $path = str_replace('admin', '', Url::home(true)).'uploads/projects/80x80/no_image.png';
         }
         return $path;
     }
@@ -172,15 +176,19 @@ class Projects extends \yii\db\ActiveRecord
 
     public function isMember($userId)
     {
-        return ProjectsUser::find()->andWhere([
+        return ProjectsUser::find()->where(['status' => 2])
+        ->andWhere([
             'project_id' => $this->id,
-            'user_id' => $userId
+            'user_id' => $userId,
         ])->one();
     }
 
-    public function getMembers()
+    public function isWaitingMember($userId)
     {
-        return $this->hasMany(User::class, ['id' => 'user_id'])
-            ->viaTable('projects_user', ['project_id' => 'id']);
+        return ProjectsUser::find()->where(['status' => 1])
+        ->andWhere([
+            'project_id' => $this->id,
+            'user_id' => $userId,
+        ])->one();
     }
 }

@@ -26,10 +26,6 @@ class UserController extends Controller
                 //'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
-                        'allow' => false,
-                    ],
-                    [
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,21 +38,6 @@ class UserController extends Controller
                 ],
             ],
         ];
-    }
-
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**

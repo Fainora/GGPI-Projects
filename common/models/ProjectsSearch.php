@@ -11,6 +11,7 @@ use common\models\Projects;
  */
 class ProjectsSearch extends Projects
 {
+    public $keywords;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class ProjectsSearch extends Projects
     {
         return [
             [['id', 'max_number', 'user_id'], 'integer'],
-            [['title', 'description', 'image'], 'safe'],
+            [['title', 'description', 'image', 'keywords'], 'safe'],
         ];
     }
 
@@ -46,6 +47,9 @@ class ProjectsSearch extends Projects
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);
@@ -63,9 +67,10 @@ class ProjectsSearch extends Projects
             'user_id' => $this->user_id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'image', $this->image]);
+        $query->orFilterWhere(['like', 'title', $this->keywords])
+            ->orFilterWhere(['like', 'description', $this->keywords]);
+
+        $dataProvider->sort->defaultOrder = ['created_at' => SORT_DESC];
 
         return $dataProvider;
     }

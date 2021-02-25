@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use \kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
+use common\models\Tag;
 
 
 /* @var $this yii\web\View */
@@ -32,6 +35,19 @@ use yii\bootstrap4\ActiveForm;
             'browseLabel' =>  'Выберите фото'
         ],
     ]) ?>
+
+    <?= $form->field($model, 'tags_array')->widget(Select2::className(), [
+        'data' => ArrayHelper::map(Tag::find()->where(['type' => 1])->all(), 'id', 'title'),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Выберите теги ...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'tags' => true,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
+        ],
+        ])->label('Tag Multiple');
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

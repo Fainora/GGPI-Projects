@@ -13,10 +13,6 @@ $this->title = $model->username;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -34,9 +30,14 @@ $this->title = $model->username;
             //'created_at',
             //'updated_at',
             //'verification_token',
-            'smallImage:image'
+            'smallImage:image',
+            'tagsAsString',
         ],
     ]) ?>
+    <?php if($model->id == Yii::$app->user->identity->id): ?>
+    <p>
+        <?= Html::a('Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
     <?= Html::a('Изменить пароль', ['site/request-password-reset']) ?>.
     <br />
     <?= Html::a('Удалить профиль', ['delete', 'id' => $model->id], [
@@ -46,4 +47,5 @@ $this->title = $model->username;
                 'method' => 'post',
             ],
         ]) ?>
+    <?php endif; ?>
 </div>

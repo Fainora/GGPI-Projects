@@ -11,6 +11,7 @@ use common\models\User;
  */
 class UserSearch extends User
 {
+    public $fullName;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'role', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'surname', 'name', 'patronymic', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'verification_token'], 'safe'],
+            [['username', 'fullName', 'surname', 'name', 'patronymic', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'verification_token', 'image'], 'safe'],
         ];
     }
 
@@ -48,9 +49,25 @@ class UserSearch extends User
             'query' => $query,
         ]);
 
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'fullName' => [
+                    'asc' => ['name' => SORT_ASC, 'surname' => SORT_ASC, 'patronymic' => SORT_ASC],
+                    'desc' => ['name' => SORT_DESC, 'surname' => SORT_DESC, 'patronymic' => SORT_DESC],
+                    'label' => 'Full Name',
+                    'default' => SORT_ASC
+                ],
+                'role',
+                'email',
+                'status',
+                'created_at'
+            ]
+        ]);
+
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!($this->load($params) && $this->validate())) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -73,7 +90,14 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
+            ->andFilterWhere(['like', 'verification_token', $this->verification_token])
+            ->andFilterWhere(['like', 'image', $this->image]);
+
+        $query->andWhere('name LIKE "%' . $this->fullName . '%" ' .
+            'OR surname LIKE "%' . $this->fullName . '%" ' . 
+            'OR patronymic LIKE "%' . $this->fullName . '%"' . 
+            'OR CONCAT(surname, " ", name, " ",patronymic) LIKE "%' . $this->fullName . '%"'
+        );
 
         return $dataProvider;
     }

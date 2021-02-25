@@ -21,7 +21,6 @@ AppAsset::register($this);
 </head>
 
 <body class="text-center">
-    
     <div class="login">
         <?php $this->beginBody() ?>
             <?= $content ?>

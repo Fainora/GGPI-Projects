@@ -5,6 +5,7 @@ use yii\bootstrap4\ActiveForm;
 use \kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use \common\models\Tag;
+use \vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Projects */
@@ -19,7 +20,22 @@ use \common\models\Tag;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(Widget::className(), [
+            'settings' => [
+                'lang' => 'ru',
+                'minHeight' => 200,
+                'plugins' => [
+                    'fullscreen',
+                ],
+                'clips' => [
+                    ['Lorem ipsum...', 'Lorem...'],
+                    ['red', '<span class="label-red">red</span>'],
+                    ['green', '<span class="label-green">green</span>'],
+                    ['blue', '<span class="label-blue">blue</span>'],
+                ],
+            ],
+        ]);
+    ?>
     <div class="row">
     <?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'file', ['options'=>['class'=>'col-sm']])->widget(\kartik\file\FileInput::classname(), [
@@ -38,7 +54,7 @@ use \common\models\Tag;
     </div>
 
     <?= $form->field($model, 'tags_array')->widget(Select2::className(), [
-    'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'title'),
+    'data' => ArrayHelper::map(Tag::find()->where(['type' => 0])->all(), 'id', 'title'),
     'language' => 'ru',
     'options' => ['placeholder' => 'Выберите теги ...', 'multiple' => true],
     'pluginOptions' => [
@@ -47,7 +63,7 @@ use \common\models\Tag;
         'tokenSeparators' => [',', ' '],
         'maximumInputLength' => 10
     ],
-    ])->label('Tag Multiple');?>
+    ])->label('Теги');?>
 
     <?//= $form->field($model, 'user_id')->textInput() ?>
     <?= $event?>

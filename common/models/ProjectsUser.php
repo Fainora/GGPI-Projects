@@ -16,6 +16,7 @@ use Yii;
  */
 class ProjectsUser extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */

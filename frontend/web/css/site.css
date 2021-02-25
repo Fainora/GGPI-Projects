@@ -27,6 +27,19 @@ p {
     margin: 0 auto -50px;
 }
 
+.projects-search .form-group {
+    margin-bottom: 0;
+}
+
+.projects-search .form-control {
+    width: 80%;
+    display: inline-block;
+}
+
+.projects-form .select2 > span {
+    display: block;
+}
+
 .card {
     margin: 10px;
 }
@@ -35,12 +48,21 @@ p {
     margin: 20px 0 0 15px;
 }
 
-.card-text {
-    margin: 0 20px 0 0;
+.block-text {
+	overflow: hidden;
+	line-height: 20px;
 }
-
+.block-text p {
+	margin: 0 0 0 0;
+}
+.line-clamp {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
 .card-body {
     min-height: 120px;
+
 }
 
 .site-contact {

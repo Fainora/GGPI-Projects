@@ -14,6 +14,7 @@ use common\widgets\Alert;
             <i class="fas fa-align-justify"></i>
         </button>
 
+        <!-- Navbar -->
         <?php
             $menuItems = [ /*
                 ['label' => 'Home', 'url' => ['/site/index']],

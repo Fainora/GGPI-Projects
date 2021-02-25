@@ -28,6 +28,8 @@ class Tag extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['title'], 'string', 'max' => 50],
+            [['type'], 'integer'],
+            [['title'], 'unique']
         ];
     }
 
@@ -38,7 +40,8 @@ class Tag extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => 'Название',
+            'type' => 'Тип'
         ];
     }
 }

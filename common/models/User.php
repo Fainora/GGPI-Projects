@@ -9,6 +9,7 @@ use yii\web\IdentityInterface;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
 use Yii\image\drivers\Image;
+use yii\helpers\ArrayHelper;
 
 /**
  * User model
@@ -31,6 +32,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
     public $file;
+    public $tags_array;
 
     /**
      * {@inheritdoc}
@@ -60,6 +62,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
             ['image', 'string', 'max' => 255],
             [['file'], 'image'],
+            [['tags_array','members'], 'safe'],
         ];
     }
 
@@ -69,6 +72,9 @@ class User extends ActiveRecord implements IdentityInterface
             'image' => 'Картинка',
             'file' => 'Картинка',
             'smallImage' => 'Картинка',
+            'tags_array' => 'Теги',
+            'tagsAsString' => 'Теги',
+            'fullName' => 'Полное имя'
         ];
     }
 
@@ -102,6 +108,21 @@ class User extends ActiveRecord implements IdentityInterface
     {
         parent::afterSave($insert, $changedAttributes);
 
+        $arr = ArrayHelper::map($this->tags, 'id', 'id');
+        if (isset($this->tags_array[0])) {
+            foreach ($this->tags_array as $tag) {
+                if(!in_array($tag, $arr)) {
+                    $model = new UserTag();
+                    $model->user_id = $this->id;
+                    $model->tag_id = $tag;
+                    $model->save();
+                }
+                if(isset($arr[$tag])) {
+                    unset($arr[$tag]);
+                }
+            }
+        }
+        UserTag::deleteAll(['tag_id'=>$arr,'user_id' => $this->id]);
     }
 
     public function getSmallImage() 
@@ -265,6 +286,32 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function getUserTag() 
+    {
+        return $this->hasMany(UserTag::className(),['user_id'=>'id']);
+    }
+
+    public function getTags() 
+    {
+        return $this->hasMany(Tag::className(),['id'=>'tag_id'])->via('userTag');
+    }
+
+    public function getTagsAsString() 
+    {
+        $arr = ArrayHelper::map($this->tags, 'id', 'title');
+        return implode(', ',$arr);
+    }
+
+    public function afterFind() 
+    {
+        $this->tags_array = $this->tags;
+    }
+
+    public function getFullName() 
+    {
+        return $this->surname . ' ' . $this->name . ' ' . $this->patronymic;
     }
 
 }

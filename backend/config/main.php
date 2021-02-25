@@ -1,7 +1,7 @@
 <?php
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
+    //require __DIR__ . '/../../common/config/params-local.php',
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
 );
@@ -54,8 +54,16 @@ return [
                 'users/<id:\d+>/<_a:[\w\-]+>' => 'users/default/<_a>', // sitename.ru/admin/users/1/update
                 */
             ],
+            
         ],
-        
+        /* AdminLTE 3
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                   '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
+                ],
+            ],
+       ],*/
     ],
     'params' => $params,
 ];

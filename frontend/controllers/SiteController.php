@@ -17,6 +17,8 @@ use frontend\models\ContactForm;
 use common\models\Projects;
 use common\models\ProjectsTag;
 use common\models\ProjectsUser;
+use common\models\ProjectsSearch;
+use yii\data\ActiveDataProvider;
 
 /**
  * Site controller
@@ -76,11 +78,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $projects = Projects::find()->OrderBy(['id' => SORT_DESC,])->all();
         $tags = ProjectsTag::find()->all();
         $members = ProjectsUser::find()->all();
 
-        return $this->render('index',compact('projects', 'tags','members'));
+        $searchModel = new ProjectsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 10;
+
+        return $this->render('index', [
+            'tags' => $tags,
+            'members' => $members, 
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
+        ]);
     }
 
     public function actionProject($id)
@@ -149,18 +159,6 @@ class SiteController extends Controller
         }
     }
 
-
-    public function actionProfile()
-    {
-        return $this->render('profile');
-    }
-
-    public function actionCreate()
-    {
-        return $this->render('create');
-    }
-
-
     /**
      * Signs user up.
      *
@@ -196,7 +194,6 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
                 return $this->goHome();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
@@ -224,8 +221,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
-
+            Yii::$app->session->setFlash('success', 'Новый пароль сохранен.');
             return $this->goHome();
         }
 
@@ -250,7 +246,7 @@ class SiteController extends Controller
         }
         if ($user = $model->verifyEmail()) {
             if (Yii::$app->user->login($user)) {
-                Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+                Yii::$app->session->setFlash('success', 'Твой email был подтвержден!');
                 return $this->goHome();
             }
         }

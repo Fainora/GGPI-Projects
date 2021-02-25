@@ -20,7 +20,9 @@
         "yiisoft/yii2-bootstrap4": "@dev",
         "kartik-v/yii2-widget-fileinput": "dev-master",
         "yurkinx/yii2-image": "^1.2",
-        "kartik-v/yii2-widget-select2": "dev-master"
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "vova07/yii2-imperavi-widget": "*",
+        "hail812/yii2-adminlte3": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

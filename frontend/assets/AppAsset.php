@@ -19,6 +19,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'https://use.fontawesome.com/releases/v5.0.13/js/solid.js',
         'https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js',
+        //'js/vue.js',
+        //'js/vuejsscript.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

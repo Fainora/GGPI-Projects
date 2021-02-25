@@ -6,6 +6,8 @@ use yii\helpers\Html;
 /* @var $model common\models\Projects */
 
 $this->title = 'Редактировать проект: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="projects-update">
 

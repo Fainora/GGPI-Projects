@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "projects_tag".
  *
  * @property int $id
- * @property int $projects_id
+ * @property int $project_id
  * @property int $tag_id
  *
  * @property Tag $tag
@@ -30,10 +30,10 @@ class ProjectsTag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['projects_id', 'tag_id'], 'required'],
-            [['projects_id', 'tag_id'], 'integer'],
+            [['project_id', 'tag_id'], 'required'],
+            [['project_id', 'tag_id'], 'integer'],
             [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'id']],
-            [['projects_id'], 'exist', 'skipOnError' => true, 'targetClass' => Projects::className(), 'targetAttribute' => ['projects_id' => 'id']],
+            [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Projects::className(), 'targetAttribute' => ['project_id' => 'id']],
         ];
     }
 
@@ -44,7 +44,7 @@ class ProjectsTag extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'projects_id' => 'Projects ID',
+            'project_id' => 'Project ID',
             'tag_id' => 'Tag ID',
         ];
     }
@@ -66,6 +66,6 @@ class ProjectsTag extends \yii\db\ActiveRecord
      */
     public function getProjects()
     {
-        return $this->hasOne(Projects::className(), ['id' => 'projects_id']);
+        return $this->hasOne(Projects::className(), ['id' => 'project_id']);
     }
 }

@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use common\models\User;
 use common\models\ProjectsUser;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 
 /**
  * ProjectsController implements the CRUD actions for Projects model.
@@ -27,10 +29,6 @@ class ProjectsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
-                        'allow' => false,
-                    ],
-                    [
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -46,22 +44,6 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Lists all Projects models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ProjectsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            ],
-        );
-    }
-
-    /**
      * Displays a single Projects model.
      * @param integer $id
      * @return mixed
@@ -69,13 +51,16 @@ class ProjectsController extends Controller
      */
     public function actionView($id)
     {
-        $members = ProjectsUser::find()->all();
+        $members = ProjectsUser::find()->where(['status' => 2])->all();
         $project = $this->findProject($id);
+        $count = ProjectsUser::find()->where(['status' => 2, 'project_id' => $project->id])->count();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
             'members'=>$members,
             'project' => $project,
+            'count' => $count,
+            'party' => $party,
         ]);
     }
 
@@ -156,17 +141,23 @@ class ProjectsController extends Controller
         return $project;
     }
 
+    /* Сейчас начнется полная жесть
+    Пожалуйста, будущая я, оптимизируй куски кода, что приведены ниже 
+    Не позорься */
+
+    //Подать заявку
     public function actionApply($id)
     {
         $project = $this->findProject($id);
         $userId = Yii::$app->user->identity->id;
-        $member = $project->isMember($userId);
+        $member = $project->isWaitingMember($userId);
         $title = "";
 
         if(!$member) {
             $member = new ProjectsUser();
             $member->project_id = $project->id;
             $member->user_id = $userId;
+            $member->status = 1;
             $member->save();
         } else {
             $member->delete();
@@ -176,13 +167,57 @@ class ProjectsController extends Controller
         ]);
     }
 
-    public function actionRequest($id)
+    //Выйти из проекта
+    public function actionExit($id)
     {
-        $this->findModel($id);
+        $project = $this->findProject($id);
+        $userId = Yii::$app->user->identity->id;
+        $member = $project->isMember($userId);
+        $member->delete();
 
-        /*return $this->render('request', [
-            'model' => $this->findModel($id),
-        ]);*/
+        return $this->renderAjax('_member', [
+            'project' => $project,
+        ]);
     }
 
+    //Кнопка "Проверить заявки"
+    public function actionRequest($id)
+    {
+        $project = $this->findProject($id);
+        $query = ProjectsUser::find()->where(['project_id' => $project->id]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 10]);
+        $members = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+        return $this->render('request', [
+            'members' => $members,
+            'project' => $project,
+            'query' => $query,
+            'pages' => $pages,
+        ]);
+    }
+    //Принять заявку user'a в проект
+    public function actionAccept($id, $project_id)
+    {
+        $project = $this->findProject($project_id);
+        $member = $project->isWaitingMember($id);
+
+        if($member) {
+            $member->status = 2;
+            $member->save();
+        }
+
+        return $this->renderAjax('_waitmember');
+    }
+    //Отклонить заявку user'a в проект
+    public function actionReject($id, $project_id)
+    {
+        $project = $this->findProject($project_id);
+        $member = $project->isWaitingMember($id);
+        
+        if($member) {
+            $member->delete();
+        }
+
+        return $this->renderAjax('_waitmember');
+    }
 }
