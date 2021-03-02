@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = 'Заявки';
         <?= $this->render('_waitmember', [
             'project' => $project,
             'member' => $member,
+            'tags' => $tags,
         ]) ?>
     <?php Pjax::end(); ?>
 <?php endforeach; ?>

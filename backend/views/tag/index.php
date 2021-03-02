@@ -9,7 +9,7 @@ use yii\widgets\LinkPager;
 /* @var $searchModel common\models\TagSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tags';
+$this->title = 'Теги';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tag-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Tag', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать тег', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

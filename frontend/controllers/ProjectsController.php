@@ -13,6 +13,8 @@ use common\models\ProjectsUser;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+use common\models\ProjectsTag;
+use common\models\UserTag;
 
 /**
  * ProjectsController implements the CRUD actions for Projects model.
@@ -54,6 +56,7 @@ class ProjectsController extends Controller
         $members = ProjectsUser::find()->where(['status' => 2])->all();
         $project = $this->findProject($id);
         $count = ProjectsUser::find()->where(['status' => 2, 'project_id' => $project->id])->count();
+        $tags = ProjectsTag::find()->all();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -61,6 +64,7 @@ class ProjectsController extends Controller
             'project' => $project,
             'count' => $count,
             'party' => $party,
+            'tags' => $tags,
         ]);
     }
 
@@ -187,12 +191,14 @@ class ProjectsController extends Controller
         $query = ProjectsUser::find()->where(['project_id' => $project->id]);
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 10]);
         $members = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $tags = UserTag::find()->all();
 
         return $this->render('request', [
             'members' => $members,
             'project' => $project,
             'query' => $query,
             'pages' => $pages,
+            'tags' => $tags,
         ]);
     }
     //Принять заявку user'a в проект

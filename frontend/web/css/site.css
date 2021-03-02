@@ -27,12 +27,27 @@ p {
     margin: 0 auto -50px;
 }
 
+#w0 {
+    margin-left: 10px;
+}
+
+#w0 .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#w0 .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 3px;
+}
+
 .projects-search .form-group {
     margin-bottom: 0;
 }
 
 .projects-search .form-control {
-    width: 80%;
+    width: 93%;
     display: inline-block;
 }
 
@@ -63,6 +78,10 @@ p {
 .card-body {
     min-height: 120px;
 
+}
+
+.wait {
+    margin-bottom: 10px;
 }
 
 .site-contact {

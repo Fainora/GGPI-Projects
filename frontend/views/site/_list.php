@@ -25,7 +25,7 @@ use common\models\ProjectsUser;
             </small>
         </div>
         <div class="block-text line-clamp">
-            <?= HtmlPurifier::process($model->description) ?>
+            <?= nl2br($model->description) ?>
         </div>
         <div class="well">
             <?php foreach($tags as $one): ?>

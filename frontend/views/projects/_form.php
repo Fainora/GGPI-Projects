@@ -20,7 +20,7 @@ use \vova07\imperavi\Widget;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->widget(Widget::className(), [
+    <?/*= $form->field($model, 'description')->widget(Widget::className(), [
             'settings' => [
                 'lang' => 'ru',
                 'minHeight' => 200,
@@ -35,7 +35,9 @@ use \vova07\imperavi\Widget;
                 ],
             ],
         ]);
+        */
     ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => '5'])  ?>
     <div class="row">
     <?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'file', ['options'=>['class'=>'col-sm']])->widget(\kartik\file\FileInput::classname(), [

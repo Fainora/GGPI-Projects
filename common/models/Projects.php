@@ -41,7 +41,7 @@ class Projects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'max_number'], 'required'],
+            [['title', 'max_number', 'description'], 'required'],
             [['description'], 'string'],
             [['max_number', 'user_id'], 'integer'],
             [['title', 'image'], 'string', 'max' => 255],
@@ -177,10 +177,10 @@ class Projects extends \yii\db\ActiveRecord
     public function isMember($userId)
     {
         return ProjectsUser::find()->where(['status' => 2])
-        ->andWhere([
-            'project_id' => $this->id,
-            'user_id' => $userId,
-        ])->one();
+            ->andWhere([
+                'project_id' => $this->id,
+                'user_id' => $userId,
+            ])->one();
     }
 
     public function isWaitingMember($userId)
