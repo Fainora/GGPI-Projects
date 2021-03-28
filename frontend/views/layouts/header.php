@@ -7,24 +7,18 @@ use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 ?>
-<nav class="navbar navbar-expand navbar-light navbar-dark sticky-top" style="background-color: #6d7fcc;">
+<nav class="navbar">
     <div class="container-fluid">
-
+<!--
         <button type="button" id="sidebarCollapse" class="btn btn-light">
             <i class="fas fa-align-justify"></i>
         </button>
-
+-->
         <!-- Navbar -->
         <?php
-            $menuItems = [ /*
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-                */
-            ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+                $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
             } else {
                 $menuItems[] = [
                     'label' => 'Выход ('.Yii::$app->user->identity->username.')',

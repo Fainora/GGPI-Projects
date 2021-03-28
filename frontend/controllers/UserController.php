@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\Projects;
+use common\models\ProjectsUser;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -48,8 +50,13 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $creater = Projects::find()->all();
+        $projects = ProjectsUser::find()->where(['status' => 2])->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'creater' => $creater,
+            'projects' => $projects,
         ]);
     }
 

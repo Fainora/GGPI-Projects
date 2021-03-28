@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 <?php if($project->isMember(Yii::$app->user->identity->id)): ?>
     <a class="btn btn-danger" href="<?= Url::to(['projects/exit', 'id' => $project->id]) ?>"
-        data-method="post" data-pjax="1" data-confirm="Вы уверены, что хотите выйти из проект?"> Выйти <i class="fas fa-times"></i>
+        data-method="post" data-pjax="1" data-confirm="Вы уверены, что хотите выйти из проекта?"> Выйти <i class="fas fa-times"></i>
     </a>
 <?php elseif($project->isWaitingMember(Yii::$app->user->identity->id)): ?>
     <a class="btn btn-secondary" href="<?= Url::to(['projects/apply', 'id' => $project->id]) ?>"

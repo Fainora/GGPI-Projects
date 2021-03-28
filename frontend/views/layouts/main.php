@@ -4,9 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -22,28 +20,16 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 
+<?php $this->beginBody() ?>
 <div class="wrapper">
     <?= $this->render('sidebar'); ?>
-    <div id="content">
-        <?= $this->render('header'); ?>
-        <div class="page">
-            <div class="container">
-                <?= Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
-                <?= Alert::widget() ?>
-            </div>
-            <?= $content ?>
-        </div>
-        <?= $this->render('footer'); ?>
+    <div class="page">
+        <?= $content ?>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

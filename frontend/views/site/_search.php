@@ -14,13 +14,13 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'data-pjax' => 1
+            'data-pjax' => 1,
+            'id' => 'form-search'
         ],
     ]); ?>
 
-    <?= $form->field($model, 'keywords', [
-            'template' => '{input}' .
-            Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-success']),
+    <?= $form->field($model, 'keywords', ['template' => '{input}' .
+            Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn search']),
         ])->textInput(['placeholder' => 'Поиск']);
     ?>
 

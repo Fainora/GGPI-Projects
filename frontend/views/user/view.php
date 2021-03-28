@@ -34,6 +34,22 @@ $this->title = $model->username;
             'tagsAsString',
         ],
     ]) ?>
+    
+    <?php if($model->id == Yii::$app->user->identity->id): ?>
+        <h5>Ваши проекты: </h5>
+            <?php foreach($creater as $сurator): ?>
+                <?php if($сurator->user_id == Yii::$app->user->identity->id): ?>
+                    <li><?= $сurator->title ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <h5>Проекты в которых вы состоите: </h5>
+        <?php foreach($projects as $project): ?>
+            <?php if(($project->user_id == Yii::$app->user->identity->id) && ($project->status == 2)): ?>
+                <li><?= $project->project->title ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php if($model->id == Yii::$app->user->identity->id): ?>
     <p>
         <?= Html::a('Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

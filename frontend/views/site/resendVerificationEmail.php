@@ -9,6 +9,12 @@ use yii\bootstrap4\ActiveForm;
 $this->title = 'Resend verification email';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="container">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert::widget() ?>
+</div>
 <div class="site-resend-verification-email">
     <h1><?= Html::encode($this->title) ?></h1>
 

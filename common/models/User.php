@@ -313,5 +313,4 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->surname . ' ' . $this->name . ' ' . $this->patronymic;
     }
-
 }

@@ -10,6 +10,12 @@ use yii\bootstrap4\ActiveForm;
 $this->title = 'Reset password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="container">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert::widget() ?>
+</div>
 <div class="site-reset-password">
     <h1><?= Html::encode($this->title) ?></h1>
 

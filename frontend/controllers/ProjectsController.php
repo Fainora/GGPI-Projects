@@ -15,6 +15,7 @@ use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use common\models\ProjectsTag;
 use common\models\UserTag;
+use common\models\Dashboard;
 
 /**
  * ProjectsController implements the CRUD actions for Projects model.
@@ -63,7 +64,6 @@ class ProjectsController extends Controller
             'members'=>$members,
             'project' => $project,
             'count' => $count,
-            'party' => $party,
             'tags' => $tags,
         ]);
     }
@@ -145,10 +145,6 @@ class ProjectsController extends Controller
         return $project;
     }
 
-    /* Сейчас начнется полная жесть
-    Пожалуйста, будущая я, оптимизируй куски кода, что приведены ниже 
-    Не позорься */
-
     //Подать заявку
     public function actionApply($id)
     {
@@ -162,7 +158,7 @@ class ProjectsController extends Controller
             $member->project_id = $project->id;
             $member->user_id = $userId;
             $member->status = 1;
-            $member->save();
+            //$member->save();
         } else {
             $member->delete();
         }
@@ -209,7 +205,7 @@ class ProjectsController extends Controller
 
         if($member) {
             $member->status = 2;
-            $member->save();
+            //$member->save();
         }
 
         return $this->renderAjax('_waitmember');
@@ -221,9 +217,35 @@ class ProjectsController extends Controller
         $member = $project->isWaitingMember($id);
         
         if($member) {
-            $member->delete();
+            //$member->delete();
         }
 
         return $this->renderAjax('_waitmember');
+    }
+    //Выгнать из проекта
+    public function actionKick($id, $project_id)
+    {
+        $project = $this->findProject($project_id);
+        $member = $project->isMember($id);
+        //$member->delete();
+
+        return $this->renderAjax('_kick');
+    }
+
+    //Доска
+    public function actionDashboard($id)
+    {
+        $project = $this->findProject($id);
+        $projects = Projects::find()->all();
+        $model = $this->findModel($id);
+        $dashboard = Dashboard::find()->all();
+
+        return $this->render('dashboard', [
+            'id' => $id,
+            'project' => $project,
+            'projects' => $projects,
+            'model' => $model,
+            'dashboard' => $dashboard
+        ]);
     }
 }

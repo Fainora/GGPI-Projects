@@ -1,19 +1,16 @@
 <?php
 use yii\widgets\ListView;
 use yii\widgets\LinkPager;
+use common\widgets\vue\VueWidget;
 
 /* @var $this yii\web\View */
 
 $this->title = 'GGPI-Projects';
 ?>
-<!-- 
-<p>1. Админка (добавить плюшки)
-<p>3. При удалении проекта/пользователя, удалить картинку
-<p>6. (!) Frontend
-<p>7. Если ты участик, то кнопка Выйти остается
+<!--
 <div id="app"></div> -->
 
-<?//= VueWidget::widget(['component' => 'test-component', 'props' => ['msg' => 'PAF']])?>
+<?//= VueWidget::widget(['component' => 'hello-world', 'props' => ['msg' => 'PAF']])?>
 <!-- Search -->
 <?= $this->render('_search', ['model' => $searchModel]); ?>
 

@@ -45,6 +45,7 @@ class Projects extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['max_number', 'user_id'], 'integer'],
             [['title', 'image'], 'string', 'max' => 255],
+            [['title'], 'unique'],
             [['tags_array','members'], 'safe'],
             [['file'], 'image'],
             ['user_id', 'default', 'value' => Yii::$app->user->identity->id ],
@@ -155,18 +156,18 @@ class Projects extends \yii\db\ActiveRecord
     
     public function getProjectsTag() 
     {
-        return $this->hasMany(ProjectsTag::className(),['project_id'=>'id']);
+        return $this->hasMany(ProjectsTag::className(), ['project_id'=>'id']);
     }
 
     public function getTags() 
     {
-        return $this->hasMany(Tag::className(),['id'=>'tag_id'])->via('projectsTag');
+        return $this->hasMany(Tag::className(), ['id'=>'tag_id'])->via('projectsTag');
     }
 
     public function getTagsAsString() 
     {
         $arr = ArrayHelper::map($this->tags, 'id', 'title');
-        return implode(', ',$arr);
+        return implode(', ', $arr);
     }
 
     public function afterFind() 

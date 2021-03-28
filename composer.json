@@ -22,7 +22,8 @@
         "yurkinx/yii2-image": "^1.2",
         "kartik-v/yii2-widget-select2": "dev-master",
         "vova07/yii2-imperavi-widget": "*",
-        "hail812/yii2-adminlte3": "*"
+        "hail812/yii2-adminlte3": "*",
+        "kartik-v/yii2-sortable-input": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

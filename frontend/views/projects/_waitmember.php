@@ -8,19 +8,19 @@ use yii\helpers\Html;
 ?>
 
 <?php if(($project->id == $member->project_id) && $member->status == 1): ?>
-<div class="wait">
-    <li><?= Html::encode($member->user->username); ?></li>
-    <div class="well">
-    Ключевые навыки:
-    <?=$member->user->tagsAsString?>
+    <div class="wait">
+        <li><?= Html::encode($member->user->username); ?></li>
+        <div class="well">
+            Ключевые навыки:
+            <?=$member->user->tagsAsString?>
+        </div>
+        <a class="btn btn-success"
+            href="<?= Url::to(['projects/accept', 'id' => $member->user->id, 'project_id' => $project->id]) ?>"
+            data-method="post" data-pjax="1" id="hideMe-<?=$member->user->id?>">Принять
+        </a>
+        <a class="btn btn-danger"
+            href="<?= Url::to(['projects/reject', 'id' => $member->user->id, 'project_id' => $project->id]) ?>"
+            data-method="post" data-pjax="1" id="hideMe-<?=$member->user->id?>">Отклонить
+        </a>
     </div>
-    <a class="btn btn-success" 
-        href="<?= Url::to(['projects/accept', 'id' => $member->user->id, 'project_id' => $project->id]) ?>"
-        data-method="post" data-pjax="1" id="hideMe-<?=$member->user->id?>">Принять
-    </a>
-    <a class="btn btn-danger" 
-        href="<?= Url::to(['projects/reject', 'id' => $member->user->id, 'project_id' => $project->id]) ?>"
-        data-method="post" data-pjax="1" id="hideMe-<?=$member->user->id?>">Отклонить
-    </a>
-</div>
 <?php endif; ?>

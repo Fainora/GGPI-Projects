@@ -20,23 +20,6 @@ use \vova07\imperavi\Widget;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'description')->widget(Widget::className(), [
-            'settings' => [
-                'lang' => 'ru',
-                'minHeight' => 200,
-                'plugins' => [
-                    'fullscreen',
-                ],
-                'clips' => [
-                    ['Lorem ipsum...', 'Lorem...'],
-                    ['red', '<span class="label-red">red</span>'],
-                    ['green', '<span class="label-green">green</span>'],
-                    ['blue', '<span class="label-blue">blue</span>'],
-                ],
-            ],
-        ]);
-        */
-    ?>
     <?= $form->field($model, 'description')->textarea(['rows' => '5'])  ?>
     <div class="row">
     <?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
@@ -56,19 +39,18 @@ use \vova07\imperavi\Widget;
     </div>
 
     <?= $form->field($model, 'tags_array')->widget(Select2::className(), [
-    'data' => ArrayHelper::map(Tag::find()->where(['type' => 0])->all(), 'id', 'title'),
-    'language' => 'ru',
-    'options' => ['placeholder' => 'Выберите теги ...', 'multiple' => true],
-    'pluginOptions' => [
-        'allowClear' => true,
-        'tags' => true,
-        'tokenSeparators' => [',', ' '],
-        'maximumInputLength' => 10
-    ],
+        'data' => ArrayHelper::map(Tag::find()->where(['type' => 0])->orderBy(['title' => SORT_ASC])
+            ->all(), 'id', 'title'),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Выберите теги ...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'tags' => true,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
+        ],
     ])->label('Теги');?>
 
-    <?//= $form->field($model, 'user_id')->textInput() ?>
-    <?= $event?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
