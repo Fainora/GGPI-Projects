@@ -151,17 +151,17 @@ class ProjectsController extends Controller
         $project = $this->findProject($id);
         $userId = Yii::$app->user->identity->id;
         $member = $project->isWaitingMember($userId);
-        $title = "";
 
         if(!$member) {
             $member = new ProjectsUser();
             $member->project_id = $project->id;
             $member->user_id = $userId;
             $member->status = 1;
-            //$member->save();
+            $member->save();
         } else {
             $member->delete();
         }
+
         return $this->renderAjax('_member', [
             'project' => $project,
         ]);
@@ -188,6 +188,7 @@ class ProjectsController extends Controller
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 10]);
         $members = $query->offset($pages->offset)->limit($pages->limit)->all();
         $tags = UserTag::find()->all();
+        $count = ProjectsUser::find()->where(['status' => 2, 'project_id' => $project->id])->count();
 
         return $this->render('request', [
             'members' => $members,
@@ -195,6 +196,7 @@ class ProjectsController extends Controller
             'query' => $query,
             'pages' => $pages,
             'tags' => $tags,
+            'count' => $count,
         ]);
     }
     //Принять заявку user'a в проект
@@ -205,7 +207,7 @@ class ProjectsController extends Controller
 
         if($member) {
             $member->status = 2;
-            //$member->save();
+            $member->save();
         }
 
         return $this->renderAjax('_waitmember');
@@ -217,7 +219,7 @@ class ProjectsController extends Controller
         $member = $project->isWaitingMember($id);
         
         if($member) {
-            //$member->delete();
+            $member->delete();
         }
 
         return $this->renderAjax('_waitmember');
@@ -228,24 +230,10 @@ class ProjectsController extends Controller
         $project = $this->findProject($project_id);
         $member = $project->isMember($id);
         //$member->delete();
+        if($model->save(false)) {
+            print_r("asd");
+        }
 
         return $this->renderAjax('_kick');
-    }
-
-    //Доска
-    public function actionDashboard($id)
-    {
-        $project = $this->findProject($id);
-        $projects = Projects::find()->all();
-        $model = $this->findModel($id);
-        $dashboard = Dashboard::find()->all();
-
-        return $this->render('dashboard', [
-            'id' => $id,
-            'project' => $project,
-            'projects' => $projects,
-            'model' => $model,
-            'dashboard' => $dashboard
-        ]);
     }
 }

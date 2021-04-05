@@ -13,8 +13,8 @@ $this->title = $name;
     <div class="top">
         <div class="top-inner">
             <h1>404</h1>
-            <p>This page is missing</p>
         </div>
+        <p>This page is missing</p>
     </div>
 
     <?= Html::a("На главную",  '/site/index', ['class' => 'error btn']) ?>

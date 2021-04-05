@@ -98,7 +98,8 @@ class Projects extends \yii\db\ActiveRecord
                     unlink($dir . '80x80/' . $this->image);
                 }
             };
-            $this->image = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6) . '.' . $file->extension;
+            $this->image = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6) . 
+                '.' . $file->extension;
             $file->saveAs($dir.$this->image);
             $imag = Yii::$app->image->load($dir.$this->image);
             $imag->background('#fff', 0);

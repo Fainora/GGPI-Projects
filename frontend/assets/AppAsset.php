@@ -11,7 +11,7 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
+    //public $jsOptions = ['position' => \yii\web\View::POS_HEAD];  ЛОМАЕТ AJAX
     public $css = [
         'css/site.css',
         'css/sidebar.css',

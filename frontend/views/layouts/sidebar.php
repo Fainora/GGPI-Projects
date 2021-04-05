@@ -38,8 +38,9 @@ use yii\helpers\Html;
             </a>
         </li>
         <li class="exit">
-            <?= Html::a('<p><i class="fas fa-sign-out-alt"></i> Выход (' . Yii::$app->user->identity->username
-                . ')</p>', ['/site/logout']); ?>
+            <?= Html::a('<p><i class="fas fa-sign-out-alt"></i> Выход (' . 
+                Yii::$app->user->identity->username . ')</p>', ['/site/logout'],
+                ['data' => ['method' => 'post']]); ?>
         </li>
     </ul>
 </nav>

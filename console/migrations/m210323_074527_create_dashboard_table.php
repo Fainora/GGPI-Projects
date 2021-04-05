@@ -15,12 +15,12 @@ class m210323_074527_create_dashboard_table extends Migration
         $this->createTable('{{%dashboard}}', [
             'id' => $this->primaryKey(),
             'project_id' => $this->integer()->notNull(),
-            'to_do' => $this->string(),
-            'do' => $this->string(),
-            'done' => $this->string(),
-            'bugs' => $this->string(),
-            'resources' => $this->string()
+            'text' => $this->string(),
+            'position' => 'ENUM("todo", "doing", "done", "backlog")',
         ]);
+
+        $sql = "ALTER TABLE {{%dashboard}} ALTER position SET DEFAULT 'todo'";
+        $this->execute($sql);
 
         // creates index for column `project_id`
         $this->createIndex(

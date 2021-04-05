@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::a('Заявки на участие', ['request', 'id' => $model->id], 
                     ['class' => 'btn btn-success']) ?>
             <?php else: ?>
-                <?php Pjax::begin() ?>
+                <?php Pjax::begin(['timeout' => 5000, 'enablePushState' => false]) ?>
                     <?= $this->render('_member', [
                         'project' => $project,
                         'count' => $count,
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php if($model->isMember(Yii::$app->user->identity->id) || 
                 ($model->creater->id == Yii::$app->user->identity->id)): ?>
                 <div class="btn-group mr-2" role="group" aria-label="Second group">  
-                    <?= Html::a('Доска <i class="far fa-edit"></i>', ['dashboard', 
+                    <?= Html::a('Доска <i class="far fa-edit"></i>', ['/dashboard/dashboard', 
                         'id' => $model->id], ['class' => 'btn btn-primary']);?>
                 </div>
             <? endif; ?>
@@ -56,9 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php ($model->image) ? $img = $model->image : $img = 'no_image.png';?>
     <?= Html::img("@web/uploads/projects/80x80/$img", [
-        'class'=>'project-img', 
-        'align' => 'left',
-    ]) ?>
+        'class'=>'project-img', 'align' => 'left']) ?>
 
     <div class="card-body d-flex flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -70,14 +68,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr>
     <b>Cписок</b> (<?= $count ?>/<?= $project->max_number ?>):
 
-    <?php /* foreach ($members as $member): ?>
+    <?php foreach ($members as $member): ?>
         <?php Pjax::begin(['enablePushState' => false]); ?>
             <?= $this->render('_kick', [
                 'project' => $project,
                 'member' => $member,
             ]) ?>
         <?php Pjax::end(); ?>
-    <?php endforeach; */?>
+    <?php endforeach;?>
 
     <div class="block-text ">
         <?= nl2br($model->description) ?>

@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Заявки';
             'project' => $project,
             'member' => $member,
             'tags' => $tags,
+            'count' => $count,
         ]) ?>
     <?php Pjax::end(); ?>
 <?php endforeach; ?>

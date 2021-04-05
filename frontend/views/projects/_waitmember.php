@@ -14,10 +14,12 @@ use yii\helpers\Html;
             Ключевые навыки:
             <?=$member->user->tagsAsString?>
         </div>
+        <?php if($count < $project->max_number): ?>
         <a class="btn btn-success"
             href="<?= Url::to(['projects/accept', 'id' => $member->user->id, 'project_id' => $project->id]) ?>"
             data-method="post" data-pjax="1" id="hideMe-<?=$member->user->id?>">Принять
         </a>
+        <?php endif; ?>
         <a class="btn btn-danger"
             href="<?= Url::to(['projects/reject', 'id' => $member->user->id, 'project_id' => $project->id]) ?>"
             data-method="post" data-pjax="1" id="hideMe-<?=$member->user->id?>">Отклонить

@@ -3,20 +3,17 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\User;
-use common\models\UserSearch;
+use common\models\Dashboard;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use common\models\Projects;
-use common\models\ProjectsUser;
-use common\models\UserTag;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * DashboardController implements the CRUD actions for Dashboard model.
  */
-class UserController extends Controller
+class DashboardController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -24,16 +21,6 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -44,45 +31,56 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Lists all Dashboard models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Dashboard::find(),
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Dashboard model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $creater = Projects::find()->all();
-        $projects = ProjectsUser::find()->where(['status' => 2])->all();
-        $tags = UserTag::find()->all();
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'creater' => $creater,
-            'projects' => $projects,
-            'tags' => $tags,
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Dashboard model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new User();
+        $model = new Dashboard();
+        $project = $this->findProject($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->goBack();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'project' => $project,
         ]);
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Dashboard model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -102,7 +100,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Dashboard model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,22 +110,54 @@ class UserController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['site/index']);
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Dashboard model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Dashboard the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Dashboard::findOne($id)) !== null) {
             return $model;
         }
 
+        //throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findProject($id)
+    {
+        if (($project = Projects::findOne($id)) !== null) {
+            return $project;
+        }
+
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //Доска
+    public function actionDashboard($id)
+    {
+        $project = $this->findProject($id);
+        $projects = Projects::find()->all();
+        $model = $this->findModel($id);
+        $dashboard = Dashboard::find()->all();
+
+        return $this->render('dashboard', [
+            'id' => $id,
+            'project' => $project,
+            'projects' => $projects,
+            'model' => $model,
+            'dashboard' => $dashboard
+        ]);
+    }
+
+    public function actionAjax()
+    {
+        $post = Yii::$app->request->post();
+        var_dump($post);
     }
 }
