@@ -8,3 +8,9 @@
 <img src="https://user-images.githubusercontent.com/45584502/109652847-b4d43f00-7b79-11eb-92a3-43e1fc8d5503.png"></img>
 <img src="https://user-images.githubusercontent.com/45584502/109652904-c9b0d280-7b79-11eb-87dc-019bca22dd44.png"></img>
 <img src="https://user-images.githubusercontent.com/45584502/109653013-e77e3780-7b79-11eb-994a-edd3eb9e1d0f.png"></img>
+
+Для установки проекта на сервер:
+1. Выгрузить проект
+2. Установить composer
+3. Создать бд
+4. Php версия <= 7.4 (Из-за Imagick)
