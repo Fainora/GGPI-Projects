@@ -11,29 +11,26 @@ use yii\helpers\Url;
 $this->title = 'Авторизация';
 ?>
 
-<h1>GGPI-Project</h1>
-
-<div class="form col-md-5">
+<div class="form">
     <?php $form = ActiveForm::begin([
-            'id' => 'login-form',
             'fieldConfig' => [
                 'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",
             ],
         ]); ?>
     
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Логин'])->label(false) ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Имя пользователя'])->label(false) ?>
 
         <?= $form->field($model, 'password')->passwordInput(['placeholder' => "Пароль"])->label(false) ?>
-        <div style="color:#808080;margin:1em 0">
-            <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
-        </div>
+
         <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить?') ?>
 
         <div class="form-group btm">
-            <?= Html::submitButton('Войти', ['class' => 'btn btn-primary btn-md btn-block', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Войти', ['class' => 'sign-btn btn btn-md btn-block', 'name' => 'login-btn']) ?>
         </div>
 
-        <a href="<?= Url::to(["signup"]);?>"> Зарегистрироваться </a>
+        <div class="sign forgot">
+            <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
+        </div>
 
     <?php ActiveForm::end(); ?>
 </div>

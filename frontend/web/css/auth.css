@@ -1,6 +1,16 @@
-.text-center {
-    background: #A7B6E8; /* Для старых браузров */
-    background: linear-gradient(to bottom,#A1A0DE,#9DC3EB);
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Comfortaa', cursive;
+}
+
+body {
+    background-image: url('../images/background-image.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .login {
@@ -8,9 +18,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    background: rgba(239, 242, 243, 0.3);
-    border-radius: 10px;
+    width: 750px;
+    height: 70%;
+    background: rgba(23, 50, 69, 0.3);
+    box-shadow: 0 0 5px rgba(23, 50, 69, 0.5);
+}
+
+.wrapper {
+    height: 100%;
+    padding: 50px 70px;
 }
 
 .login-form {
@@ -18,29 +34,179 @@
     background: #fff;
 }
 
-.login h1 {
-    padding: 30px 0 30px 0;
-    color: #f0f9fc;
-    font-size: 3rem;
-}
-
 .login a {
     color: #808080;
     margin-top: -20px;
 }
 
-.btm {
-    margin: 6px;
+.sign-btn {
+    background: #173245;
+    color: #d0dce6;
+    padding: 10px;
+    margin: 50px 0 10px 0;
+}
+
+.sign-btn:hover {
+    color:#93a9b9
 }
 
 .form {
+    position: relative;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
-    padding: 20px;
+    transform: translate(-50%, -50%);
 }
 
-@media(max-width:767px) {
+.sign-in {
+    margin-right: 30px;
+}
+
+.sign a{
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.sign a:after{
+    display: block;
+	position: absolute;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #173245;
+    content: "";
+    transition: width 0.4s ease-out;
+}
+
+.sign a:hover:after,
+a:focus:after {
+	width: 100%;
+}
+
+.form-control, .form-control is-valid {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    line-height: 1;
+    border-bottom: 1px solid #fff;
+    box-shadow: none !important;
+    font-size: 18px;
+}
+
+.form-control::placeholder {
+    color: rgb(235, 235, 235);
+}
+
+.form-control:focus, .was-validated .form-control:invalid, 
+.was-validated .form-control:valid,
+.form-control.is-invalid, .form-control.is-valid, 
+.form-control.is-valid:focus, .form-control.is-invalid:focus {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    line-height: 1;
+    border-bottom: 1px solid #fff;
+    color: #000;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.was-validated .custom-control-input:valid ~ .custom-control-label,
+.custom-control-input.is-valid ~ .custom-control-label {
+    color: #000;;
+}
+
+.forgot {
+    text-align: center;
+}
+
+.forgot a {
+    font-size: 15px;
+    color: #fff;
+    margin: 0px;
+}
+
+.forgot a:hover {
+    text-decoration: none;
+}
+
+h4 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+@media(max-width: 1024px) {
+    .login {
+        width: 700px;
+    }
+}
+
+@media(max-width: 767px) {
+    .wrapper {
+        padding: 30px 50px;
+    }
+
     .login {
         width: 80%;
+    }
+
+    .sign a:hover:after,
+    a:focus:after {
+        width: 0;
+    }
+}
+
+@media(max-width: 640px) {
+    .wrapper {
+        padding: 20px 30px;
+    }
+
+    .login {
+        width: 90%;
+    }
+
+}
+
+@media(max-width: 480px) {
+    .login {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sign {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .sign a{
+        font-size: 17px;
+    }
+
+    .forgot {
+        float: none;
+        text-align: center;
+    }
+}
+
+@media(max-width: 320px) and (min-width: 320px) {
+    .login {
+        width: 100%;
+        height: 0;
+    }
+
+    .sign {
+        margin-top: 30px;
+        position: relative;
+    }
+
+    .sign a{
+        font-size: 18px;
     }
 }

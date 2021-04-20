@@ -3,10 +3,11 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use frontend\assets\AppAsset;
+use frontend\assets\AuthAsset;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 
-AppAsset::register($this);
+AuthAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,11 +21,17 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 
-<body class="text-center">
+<body>
     <div class="login">
-        <?php $this->beginBody() ?>
-            <?= $content ?>
-        <?php $this->endBody() ?>
+        <div class="wrapper">
+            <div class="sign">
+                <?= Html::a('Авторизация', ['login'], ['class' => 'sign-in']); ?>
+                <?= Html::a('Регистрация', ['signup']); ?>
+            </div>
+            <?php $this->beginBody() ?>
+                <?= $content; ?>
+            <?php $this->endBody() ?>
+        </div>
     </div>
 </body>
 </html>

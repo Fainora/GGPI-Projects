@@ -47,7 +47,7 @@ $this->title = $model->username;
     <?php endif; ?>
     <br><br>
     
-    <?php ($model->image) ? $img = $model->image : $img = 'no_image.png';?>
+    <?php ($model->image) ? $img = $model->image : $img = 'avatar.png';?>
     <?= Html::img("@web/uploads/user/80x80/$img", [
         'class'=>'user-img', 'align' => 'left']) ?>
     <h1><?= Html::encode($this->title) ?></h1>

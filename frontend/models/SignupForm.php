@@ -28,7 +28,7 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Это имя пользователя уже используется.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['surname', 'trim'],
@@ -50,6 +50,17 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+        ];
+    }
+
+    public function attributeLabels() {
+        return [
+            'username' => 'Имя пользователя',
+            'surname' => 'Фамилия',
+            'name' => 'Имя',
+            'patronymic' => 'Отчество',
+            'email' => 'Email',
+            'password' => 'Пароль'
         ];
     }
 

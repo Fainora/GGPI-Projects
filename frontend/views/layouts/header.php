@@ -9,12 +9,7 @@ use common\widgets\Alert;
 ?>
 <nav class="navbar">
     <div class="container-fluid">
-<!--
-        <button type="button" id="sidebarCollapse" class="btn btn-light">
-            <i class="fas fa-align-justify"></i>
-        </button>
--->
-        <!-- Navbar -->
+        <!-- DELETE -->
         <?php
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];

@@ -160,4 +160,10 @@ class DashboardController extends Controller
         $post = Yii::$app->request->post();
         var_dump($post);
     }
+
+    public function actionBoard() {
+        var_dump($_POST);
+
+        return true;
+    }
 }

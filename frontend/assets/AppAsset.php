@@ -15,7 +15,6 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/sidebar.css',
-        'css/auth.css',
         'css/projects.css',
         'font/varelaround.css?family=Varela+Round:400,700'
     ];

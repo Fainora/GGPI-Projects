@@ -10,21 +10,19 @@ use yii\helpers\Url;
 
 $this->title = 'Восстановление пароля';
 ?>
-<div class="site-request-password-reset">
-<center>
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>Для сброса пароя, введите ваш email.</p>
-</center>
-    
-    <div class="form col-lg-5">
-        <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+<div class="form">
+    <h4>Для сброса пароя, введите ваш Email.</h4>
+    <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-            <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder' => 'Email'])->label(false) ?>
+        <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder' => 'Email'])->label(false) ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
-            </div>
+        <div class="form-group">
+            <?= Html::submitButton('Отправить', ['class' => 'sign-btn btn btn-md btn-block']) ?>
+        </div>
+
+        <div class="sign forgot">
+            <a href="<?= Url::to(["login"]);?>">Назад</a>
+        </div>
 
         <?php ActiveForm::end(); ?>
-    </div>
 </div>

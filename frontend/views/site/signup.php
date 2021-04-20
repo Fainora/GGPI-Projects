@@ -10,14 +10,13 @@ use yii\helpers\Url;
 
 $this->title = 'Регистрация';
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="form">
 
     <div class="container">
         <?php $form = ActiveForm::begin([
             'id' => 'form-signup',
             'fieldConfig' => [
-                'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",
+                'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
             ],
             ]); ?>
             <div class="row">
@@ -46,10 +45,12 @@ $this->title = 'Регистрация';
             </div>
   
             <div class="form-group">
-                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton('Зарегистрироваться', ['class' => 'sign-btn btn  btn-md btn-block', 'name' => 'sign-btn']) ?>
             </div>
 
-            <a href="<?= Url::to(["login"]);?>">Назад</a>
+            <div class="sign forgot">
+                <a href="<?= Url::to(["login"]);?>">Назад</a>
+            </div>
 
         <?php ActiveForm::end(); ?>
     </div>

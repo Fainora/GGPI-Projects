@@ -14,10 +14,10 @@ $this->title = $name;
         <div class="top-inner">
             <h1>404</h1>
         </div>
-        <p>This page is missing</p>
+        <p><?= nl2br(Html::encode($message)); ?></p>
     </div>
 
     <?= Html::a("На главную",  '/site/index', ['class' => 'error btn']) ?>
-    
+
     <?//= Html::img('@web/images/404.png', ['alt' => '404', 'class' => 'error-img']); ?>
 </div>

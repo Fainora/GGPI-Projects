@@ -23,7 +23,7 @@ $this->title = 'GGPI-Projects';
         ],
         'viewParams' => [
             'tags' => $tags, 
-            'count' => $count
+            //'count' => $count
         ],
     ]);
  ?> 

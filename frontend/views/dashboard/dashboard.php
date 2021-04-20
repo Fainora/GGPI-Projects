@@ -5,6 +5,7 @@ use common\widgets\Alert;
 use common\widgets\vue\VueWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\bootstrap4\Modal;
 ?>
 <?php 
 $this->title = 'Доска: ' . $project->title;
@@ -64,6 +65,18 @@ $this->params['breadcrumbs'][] = 'Доска';
      }).disableSelection();
  });
 </script>
+
+<?php
+Modal::begin([
+    'title' => '<h2>Hello world</h2>',
+    'toggleButton' => ['label' => 'click me'],
+    'footer' => 'Низ окна',
+]);
+ 
+echo 'Say hello...';
+ 
+Modal::end();
+?>
 
 <div class="row">
     <div id="sortable1" class="connectedSortable card col-sm-3">

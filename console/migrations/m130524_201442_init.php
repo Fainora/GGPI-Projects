@@ -29,10 +29,25 @@ class m130524_201442_init extends Migration
             'updated_at' => $this->integer()->notNull(),
             'image' => $this->string(),
         ], $tableOptions);
+
+        $password_hash = Yii::$app->getSecurity()->generatePasswordHash('123456');
+        $auth_key = Yii::$app->security->generateRandomString();
+        $time = time();
+        $this->insert('{{%user}}', [
+            'username' => 'Admin',
+            'surname' => 'Admin',
+            'name' => 'Admin',
+            'email' => 'admin@mail.ru',
+            'password_hash' => $password_hash,
+            'auth_key' => $auth_key,
+            'created_at' => $time,
+            'updated_at' => $time,
+        ]);
     }
 
     public function down()
     {
+        $this->delete('{{%user}}', ['id' => 1]);
         $this->dropTable('{{%user}}');
     }
 }

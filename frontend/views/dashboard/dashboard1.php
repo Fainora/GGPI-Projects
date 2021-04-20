@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = 'Доска';
 <?php
     echo '<div class="col-sm-6">';
     echo SortableInput::widget([
-        'name'=>'kv-conn-1',
+        'name'=>'to-do',
         'items' => [
             1 => ['content' => 'Item # 1'],
             2 => ['content' => 'Item # 2'],
@@ -36,13 +36,28 @@ $this->params['breadcrumbs'][] = 'Доска';
             'connected'=>true,
             'options' => ['style' => 'min-height: 50px']
         ],
-        'options' => ['class'=>'form-control', 'readonly'=>true]
+        'options' => ['class'=>'form-control', 'readonly'=>true],
+        'pluginEvents' => [
+            'sortupdate' => "function(event, value) {
+                $.ajax({
+                    url: '/dashboard',
+                    method: 'post',
+                    data: {
+                        id: 1,
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            }",
+        ],
     ]);
     echo '</div>';
     
     echo '<div class="col-sm-6">';
     echo SortableInput::widget([
-        'name'=>'kv-conn-2',
+        'name'=>'doing',
         'items' => [
             10 => ['content' => 'Item # 10'],
             20 => ['content' => 'Item # 20'],
