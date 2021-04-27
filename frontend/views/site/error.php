@@ -1,10 +1,4 @@
 <?php
-
-/* @var $this yii\web\View */
-/* @var $name string */
-/* @var $message string */
-/* @var $exception Exception */
-
 use yii\helpers\Html;
 
 $this->title = $name;
@@ -19,5 +13,4 @@ $this->title = $name;
 
     <?= Html::a("На главную",  '/site/index', ['class' => 'error btn']) ?>
 
-    <?//= Html::img('@web/images/404.png', ['alt' => '404', 'class' => 'error-img']); ?>
 </div>

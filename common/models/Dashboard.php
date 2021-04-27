@@ -65,4 +65,14 @@ class Dashboard extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Projects::className(), ['id' => 'project_id']);
     }
+
+    public function isTodo($card_id)
+    {
+        return Dashboard::find()->where(['position' => 'todo'])->andWhere(['id' => $card_id])->one();
+    }
+
+    public function isDoing($card_id)
+    {
+        return Dashboard::find()->where(['position' => 'doing'])->andWhere(['id' => $card_id])->one();
+    }
 }

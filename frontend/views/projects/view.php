@@ -47,8 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php if($model->isMember(Yii::$app->user->identity->id) || 
                 ($model->creater->id == Yii::$app->user->identity->id)): ?>
                 <div class="btn-group mr-2" role="group" aria-label="Second group">  
-                    <?= Html::a('Доска <i class="far fa-edit"></i>', ['/dashboard/dashboard', 
-                        'id' => $model->id], ['class' => 'btn btn-primary']);?>
+                    <?= Html::a('Доска <i class="far fa-edit"></i>', ['/dashboard/index', 
+                        'id' => $model->id], ['class' => 'btn btn-info']);?>
                 </div>
             <? endif; ?>
         </div>

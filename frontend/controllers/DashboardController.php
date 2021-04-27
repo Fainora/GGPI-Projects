@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Projects;
+use yii\helpers\Url;
 
 /**
  * DashboardController implements the CRUD actions for Dashboard model.
@@ -34,14 +35,17 @@ class DashboardController extends Controller
      * Lists all Dashboard models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Dashboard::find(),
-        ]);
+        $project = $this->findProject($id);
+        $projects = Projects::find()->all();
+        $dashboard = Dashboard::find()->all();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'id' => $id,
+            'project' => $project,
+            'projects' => $projects,
+            'dashboard' => $dashboard
         ]);
     }
 
@@ -67,6 +71,7 @@ class DashboardController extends Controller
     {
         $model = new Dashboard();
         $project = $this->findProject($id);
+        $url = Url::previous();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
@@ -86,16 +91,19 @@ class DashboardController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $project_id)
     {
         $model = $this->findModel($id);
+        $project = $this->findProject($project_id);
+        $url = Url::previous();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->goBack();
         }
 
         return $this->render('update', [
             'model' => $model,
+            'project' => $project,
         ]);
     }
 
@@ -110,7 +118,7 @@ class DashboardController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
@@ -126,7 +134,7 @@ class DashboardController extends Controller
             return $model;
         }
 
-        //throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрошенная страница не существует.');
     }
 
     protected function findProject($id)
@@ -135,7 +143,7 @@ class DashboardController extends Controller
             return $project;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Проект не найден.');
     }
 
     //Доска
@@ -155,15 +163,47 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function actionAjax()
+    public function actionTodo($card_id)
     {
-        $post = Yii::$app->request->post();
-        var_dump($post);
+        $model = $this->findModel($card_id);
+        if($model->position != 'todo') {
+            $model->position = 'todo';
+            $model->save();
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionBoard() {
-        var_dump($_POST);
+    public function actionDoing($card_id)
+    {
+        $model = $this->findModel($card_id);
+        if($model->position != 'doing') {
+            $model->position = 'doing';
+            $model->save();
+        }
 
-        return true;
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionDone($card_id)
+    {
+        $model = $this->findModel($card_id);
+        if($model->position != 'done') {
+            $model->position = 'done';
+            $model->save();
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionBacklog($card_id)
+    {
+        $model = $this->findModel($card_id);
+        if($model->position != 'backlog') {
+            $model->position = 'backlog';
+            $model->save();
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

@@ -1,0 +1,72 @@
+.modal-footer {
+    display: block;
+    justify-content: start;
+}
+
+.to_do, .doing, .done, .backlog {
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.droptrue {
+    min-height: 200px;
+    padding: 10px;
+}
+
+.btn {
+    text-align: left;
+}
+
+.title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card {
+    padding: 5px 10px 10px 10px;
+}
+
+.dashboard {
+    min-height: 90px;
+}
+
+a.dash{
+    position: relative;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+    text-decoration: none;
+}
+
+a.dash:after{
+    display: block;
+	position: absolute;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #173245;
+    content: "";
+    transition: width 0.4s ease-out;
+}
+
+a.dash:hover:after,
+a.dash:focus:after {
+	width: 100%;
+}
+
+li.none {
+    list-style-type: none;
+}
+li.none ::before {
+    content: '➞'; 
+    padding-right: 5px;
+}
+ul.none {
+    margin: 0;
+    padding: 0;
+}
+
+.unline:hover {
+    font-weight: 700;
+}

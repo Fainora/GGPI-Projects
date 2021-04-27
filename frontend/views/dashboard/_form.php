@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
        // 'done' => 'Выполнено', 'backlog' => 'Отложено']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('+', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
