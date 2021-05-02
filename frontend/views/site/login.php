@@ -11,7 +11,7 @@ use yii\helpers\Url;
 $this->title = 'Авторизация';
 ?>
 
-<div class="form">
+<div class="form-login">
     <?php $form = ActiveForm::begin([
             'fieldConfig' => [
                 'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",

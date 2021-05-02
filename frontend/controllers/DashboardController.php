@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Projects;
 use yii\helpers\Url;
+use yii\web\ForbiddenHttpException;
 
 /**
  * DashboardController implements the CRUD actions for Dashboard model.
@@ -40,13 +41,17 @@ class DashboardController extends Controller
         $project = $this->findProject($id);
         $projects = Projects::find()->all();
         $dashboard = Dashboard::find()->all();
+        
+        if (!($project->isMember(Yii::$app->user->identity->id))) {
+            throw new ForbiddenHttpException('У вас нет прав просматривать данную доску');
+        }
 
         return $this->render('index', [
             'id' => $id,
             'project' => $project,
             'projects' => $projects,
             'dashboard' => $dashboard
-        ]);
+        ]);    
     }
 
     /**

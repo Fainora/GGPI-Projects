@@ -11,6 +11,7 @@ body {
     background-image: url('../images/background-image.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .login {
@@ -19,7 +20,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 750px;
-    height: 70%;
+    min-height: 70%;
     background: rgba(23, 50, 69, 0.3);
     box-shadow: 0 0 5px rgba(23, 50, 69, 0.5);
 }
@@ -51,10 +52,11 @@ body {
 }
 
 .form {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 25px;
+}
+
+.form-login {
+    transform: translate(0, 50%);
 }
 
 .sign-in {
@@ -141,6 +143,10 @@ h4 {
     margin-bottom: 50px;
 }
 
+.captcha {
+    top: 10px;
+}
+
 @media(max-width: 1024px) {
     .login {
         width: 700px;
@@ -163,20 +169,10 @@ h4 {
 }
 
 @media(max-width: 640px) {
-    .wrapper {
-        padding: 20px 30px;
-    }
-
-    .login {
-        width: 90%;
-    }
-
-}
-
-@media(max-width: 480px) {
     .login {
         width: 100%;
         height: 100%;
+        overflow: auto;
     }
 
     .sign {
@@ -186,27 +182,57 @@ h4 {
     }
 
     .sign a{
-        font-size: 17px;
+        font-size: 25px;
     }
 
     .forgot {
-        float: none;
-        text-align: center;
+        justify-content: center;
+        padding-bottom: 30px;
+    }
+
+    .forgot a {
+        font-size: 20px;
+    }
+
+    .sign-btn {
+        margin: 25px 0 10px 0;
+        font-size: 20px;
+    }
+
+    .form {
+        font-size: 18px;
+    }
+
+    .form-control {
+        font-size: 20px;
+    }
+
+    img {
+        width: 200px;
     }
 }
 
-@media(max-width: 320px) and (min-width: 320px) {
-    .login {
-        width: 100%;
-        height: 0;
-    }
-
-    .sign {
-        margin-top: 30px;
-        position: relative;
-    }
-
+@media(max-width: 480px) {
     .sign a{
         font-size: 18px;
+    }
+
+    .form-control {
+        font-size: 20px;
+    }
+
+    .sign-btn {
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 320px) {
+    .sign {
+        margin-top: 10px;
+        display: block;
+    }
+
+    .sign-btn {
+        font-size: 14px;
     }
 }
