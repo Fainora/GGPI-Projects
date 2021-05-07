@@ -47,7 +47,7 @@ class Projects extends \yii\db\ActiveRecord
             [['title', 'image'], 'string', 'max' => 255],
             [['title'], 'unique'],
             [['tags_array','members'], 'safe'],
-            [['file'], 'image'],
+            [['file'], 'image', 'extensions' => 'png, jpg, jpeg'],
             ['user_id', 'default', 'value' => Yii::$app->user->identity->id ],
         ];
     }

@@ -7,10 +7,6 @@ a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
-i,
-span {
-    display: inline-block;
-}
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -33,7 +29,10 @@ span {
     margin-bottom: 0;
     margin-top: 0;
 }
-
+#sidebar h5 {
+    font-size: 0.8em;
+    white-space:normal;
+}
 #sidebar .sidebar-header {
     padding: 20px;
     background: #6d7fcc;
@@ -63,16 +62,78 @@ span {
     position: absolute;
     bottom: 20px;
 }
+.exit a {
+    min-width: 90px;
+    max-width: 90px;
+}
+.exit h5 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 #sidebar ul li.exit a:hover {
     color: #001A6A;
     background:none;
 }
 
-@media screen and (max-width: 479px) {
-/* стили для телефонов - начало */
+@media screen and (max-width: 640px) {
     #sidebar {
-        min-width: 0px;
-        max-width: 0px;
+        height: 90px;
+        min-width: 100%;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        background: #6d7fcc;
+        color: #fff;
+    }
+    .sidebar-header {
+        display: none;
+    }
+    #sidebar ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 0 10px;
+        margin:  8px 10px 8px 10px;
+    }
+    #sidebar ul li {
+        flex:1;
+        margin: 0;
+        padding: 0;
+        border-right: double 1px silver;
+    }
+    #sidebar ul li:last-child {
+        border-right: none;
+    }
+    #sidebar ul.components {
+        padding: 0;
+    }
+    #sidebar ul li a {
+        white-space: normal;
+        margin-bottom: 0;
+        margin-top: 0;
+        font-size: 2.3em;
+    }
+    #sidebar ul li a:hover {
+        color: #c2cbf0;
+        background: none;
+    }
+    #sidebar h5 {
+        font-size: 0;
+    }
+    .exit {
+        position: unset;
+        bottom: 0;
+        justify-items: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #sidebar {
+        height: 90px;
+    }
+    #sidebar ul li a {
+        font-size: 2em;
     }
 }

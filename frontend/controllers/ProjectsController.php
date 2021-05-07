@@ -229,11 +229,8 @@ class ProjectsController extends Controller
     {
         $project = $this->findProject($project_id);
         $member = $project->isMember($id);
-        //$member->delete();
-        if($model->save(false)) {
-            print_r("asd");
-        }
+        $member->delete();
 
-        return $this->renderAjax('_kick');
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

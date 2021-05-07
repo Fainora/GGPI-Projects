@@ -10,28 +10,6 @@ $this->title = $model->username;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="user-view">
-
-    <?/*= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            //'id',
-            'username',
-            'surname',
-            'name',
-            'patronymic',
-            //'role',
-            'email:email',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
-            'smallImage:image',
-            'tagsAsString',
-        ],
-    ]) */?>
     <?php if($model->id == Yii::$app->user->identity->id): ?>
         <div class="btn-group" role="group" aria-label="Basic example">
             <?= Html::a('Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -45,18 +23,18 @@ $this->title = $model->username;
                 ]) ?>
         </div>
     <?php endif; ?>
-    <br><br>
-    
-    <?php ($model->image) ? $img = $model->image : $img = 'avatar.png';?>
-    <?= Html::img("@web/uploads/user/80x80/$img", [
-        'class'=>'user-img', 'align' => 'left']) ?>
-    <h1><?= Html::encode($this->title) ?></h1>
-    <div class="well">
-        <?php foreach($tags as $one): ?>
-            <?php if($one->user_id == Yii::$app->user->identity->id):?>
-                <span class="badge badge-info"><?=$one->tag->title?></span>
-            <?php endif; ?>
-        <?php endforeach; ?>
+    <div class="top">
+        <?php ($model->image) ? $img = $model->image : $img = 'avatar.png';?>
+        <?= Html::img("@web/uploads/user/80x80/$img", [
+            'class'=>'user-img', 'align' => 'left']) ?>
+        <h1><?= Html::encode($this->title) ?></h1>
+        <div class="well">
+            <?php foreach($tags as $one): ?>
+                <?php if($one->user_id == Yii::$app->user->identity->id):?>
+                    <span class="badge badge-info"><?=$one->tag->title?></span>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
     <hr>
     <?php if($model->id == Yii::$app->user->identity->id): ?>

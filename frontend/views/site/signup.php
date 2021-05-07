@@ -46,9 +46,11 @@ $this->title = 'Регистрация';
             </div>
 
             <div class="row">
+                <div class="col-md-6">
                 <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                        'template' => '<div class="col-md-3">{image}</div>{input}',
+                        'template' => '{image}{input}',
                     ])->label(false) ?>
+                </div>
             </div>
   
             <div class="form-group">

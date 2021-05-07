@@ -33,7 +33,7 @@ class Dashboard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['project_id'], 'required'],
+            [['project_id', 'text'], 'required'],
             [['project_id'], 'integer'],
             [['position'], 'string'],
             [['text'], 'string', 'max' => 255],

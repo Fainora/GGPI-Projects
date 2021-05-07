@@ -58,10 +58,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['surname', 'name', 'email'], 'required'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
             ['image', 'string', 'max' => 255],
-            [['file'], 'image'],
+            [['file'], 'image', 'extensions' => 'png, jpg, jpeg'],
             [['tags_array','members'], 'safe'],
         ];
     }
@@ -69,6 +70,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
+            'surname' => 'Фамилия',
+            'name' => 'Имя',
+            'email' => 'Email',
             'image' => 'Картинка',
             'file' => 'Картинка',
             'smallImage' => 'Картинка',

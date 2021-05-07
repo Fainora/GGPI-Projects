@@ -6,6 +6,7 @@ body {
     font-family: 'Comfortaa', cursive;
     background: #fafafa;
     margin: 0;
+    font-size: 16px;
 }
 
 .wrapper {
@@ -146,12 +147,12 @@ p {
     width: 100%;
     /* font-family: "Varela Round"; */
     color: #657be0;
-    font-size: 1.5em;
+    font-size: 1.3em;
     text-align: center;
 }
 
 .site-error h1 {
-    font-size: 4em;
+    font-size: 3em;
     padding-top: 60px;
 }
 
@@ -252,17 +253,22 @@ a.desc:after {
 }
 
 
-@media screen and (max-width: 580px) {
-    .project-img {
-        width: 80px; 
-        height: 80px; 
-    }
-}
-
-@media screen and (max-width: 479px) {
-/* стили для телефонов - начало */
+@media screen and (max-width: 640px) {
     .content {
         width: 100%;
     }
-
+    .wrapper {
+        min-height: 100%;
+        display: flex;
+        align-items: stretch;
+        margin-left: 0;
+        background-color: #6d7fcc;
+    }
+    .page {
+        margin: 20px 10px 10px 10px;
+        margin-top: 93px;
+    }
+    .badge {
+        font-size: 0.9em;
+    }
 }

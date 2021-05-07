@@ -54,29 +54,41 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <?php ($model->image) ? $img = $model->image : $img = 'no_image.png';?>
-    <?= Html::img("@web/uploads/projects/80x80/$img", [
-        'class'=>'project-img', 'align' => 'left']) ?>
+    <div class="project-top">
+        <?php ($model->image) ? $img = $model->image : $img = 'no_image.png';?>
+        <?= Html::img("@web/uploads/projects/80x80/$img", [
+            'class'=>'project-img', 'align' => 'left']) ?>
 
-    <div class="card-body d-flex flex-column align-items-start">
-        <div class="d-flex w-100 justify-content-between">
-            <h2><?= Html::encode($this->title) ?></h2>
+        <div class="card-body d-flex flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h2><?= Html::encode($this->title) ?></h2>
+            </div>
+            <b>Куратор: </b>
+            <?=Html::a($model->creater->username, ['user/view', 'id' => $model->creater->id]);?>
         </div>
-        <b>Куратор: </b>
-        <?=Html::a($model->creater->username, ['user/view', 'id' => $model->creater->id]);?>
     </div>
-    <hr>
-    <b>Cписок</b> (<?= $count ?>/<?= $project->max_number ?>):
-
-    <?php foreach ($members as $member): ?>
-        <?php Pjax::begin(['enablePushState' => false]); ?>
-            <?= $this->render('_kick', [
-                'project' => $project,
-                'member' => $member,
-            ]) ?>
-        <?php Pjax::end(); ?>
-    <?php endforeach;?>
-
+    <i class="fas fa-user"></i> <b>Cписок</b> (<?= $count ?>/<?= $project->max_number ?>):
+    <div class="wait">
+        <ul>
+            <?php foreach ($members as $member): ?>
+                <?php if($project->id == $member->project->id): ?>
+                    <li><?=Html::a($member->user->username, ['user/view', 'id' => $member->user->id]);?>
+                        <?=Html::a('<i class="fas fa-times"></i>', [
+                                'projects/kick', 'id' => $member->user->id, 'project_id' => $project->id
+                            ],
+                            [
+                                'data' => [
+                                    'confirm' => 'Удалить ' . $member->user->username . ' из проекта?',
+                                    'method' => 'post',
+                                    'pjax' => 1
+                                ],
+                            ]);
+                        ?>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach;?>
+        </ul>
+    </div>
     <div class="block-text ">
         <?= nl2br($model->description) ?>
     </div>

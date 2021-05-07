@@ -23,15 +23,18 @@ use \vova07\imperavi\Widget;
     <?= $form->field($model, 'description')->textarea(['rows' => '5'])  ?>
     <div class="row">
     <?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'file', ['options'=>['class'=>'col-sm']])->widget(\kartik\file\FileInput::classname(), [
+    <?= $form->field($model, 'file', ['options'=>['class'=>'col-lg-6']])->widget(\kartik\file\FileInput::classname(), [
         'pluginOptions' => [
+            'allowedFileExtensions'=> ['jpg','jpeg','png'],
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
             'dropZoneEnabled' => false,
-            'browseClass' => 'btn btn-primary btn-block',
+            'browseClass' => 'image btn btn-primary btn-block',
             'browseIcon' => '<i class="fas fa-camera"></i>',
-            'browseLabel' =>  'Выберите фото'
+            'browseLabel' => 'Выберите фото',
+            'previewFileType' => 'image',
+            'maxFileSize' => ['1024'],
         ],
     ]) ?>
 

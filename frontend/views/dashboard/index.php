@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = 'Доска';
 </p>
 
 <div class="row">
-    <div class="dashboard card col-lg">
+    <div class="dashboard-todo card col-lg">
         <div class="title">Сделать</div>
         <?php foreach($dashboard as $card): ?>
             <?php if($id == $card->project_id): ?>
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             'toggleButton' => [
                                 'label' => $card->text,
                                 'tag' => 'button',
-                                'class' => 'to_do btn btn-danger',
+                                'class' => 'btn to_do ',
                             ],
                             'footer' => 'Переместить в колонку: ' .
                             '<li class="none">' . Html::a('В процессе', ['doing','card_id' => $card->id], ['class' => 'unline']) . '</li>' .
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = 'Доска';
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
-    <div class="dashboard card col-lg">
+    <div class="dashboard-doing card col-lg">
         <div class="title">В процессе</div>
         <?php foreach($dashboard as $card): ?>
             <?php if($id == $card->project_id): ?>
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                     <?php
                         Modal::begin([
                             'title' =>  
-                                Html::a('Редактировать', ['update', 'id' => $card->id], ['class' => 'dash']) . ' / ' .
+                            Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
                                 Html::a('Удалить', ['delete', 'id' => $card->id],[
                                     'class' => 'dash',
                                     'data' => [
@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             'toggleButton' => [
                                 'label' => $card->text,
                                 'tag' => 'button',
-                                'class' => 'doing btn btn-warning',
+                                'class' => 'btn doing',
                             ],
                             'footer' => 'Переместить в колонку: ' .
                                 '<li class="none">' . Html::a('Сделать', ['todo', 'card_id' => $card->id], ['class' => 'unline']) . '</li>' .
@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = 'Доска';
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
-    <div class="dashboard card col-lg">
+    <div class="dashboard-done card col-lg">
         <div class="title">Готово</div>
         <?php foreach($dashboard as $card): ?>
             <?php if($id == $card->project_id): ?>
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                     <?php
                         Modal::begin([
                             'title' =>  
-                                Html::a('Редактировать', ['update', 'id' => $card->id], ['class' => 'dash']) . ' / ' .
+                            Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
                                 Html::a('Удалить', ['delete', 'id' => $card->id],[
                                     'class' => 'dash',
                                     'data' => [
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             'toggleButton' => [
                                 'label' => $card->text,
                                 'tag' => 'button',
-                                'class' => 'done btn btn-success',
+                                'class' => 'btn done',
                             ],
                             'footer' => 'Переместить в колонку: ' .
                                 '<li class="none">' . Html::a('Сделать', ['todo', 'card_id' => $card->id], ['class' => 'unline']) . '</li>' .    
@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = 'Доска';
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
-    <div class="dashboard card col-lg">
+    <div class="dashboard-backlog card col-lg">
         <div class="title">Backlog</div>
         <?php foreach($dashboard as $card): ?>
             <?php if($id == $card->project_id): ?>
@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                     <?php
                         Modal::begin([
                             'title' =>  
-                                Html::a('Редактировать', ['update', 'id' => $card->id], ['class' => 'dash']) . ' / ' .
+                            Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
                                 Html::a('Удалить', ['delete', 'id' => $card->id],[
                                     'class' => 'dash',
                                     'data' => [
@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             'toggleButton' => [
                                 'label' => $card->text,
                                 'tag' => 'button',
-                                'class' => 'backlog btn btn-info',
+                                'class' => 'btn backlog',
                             ],
                             'footer' => 'Переместить в колонку: ' .
                                 '<ul class="none">' .

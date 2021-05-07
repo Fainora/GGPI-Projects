@@ -15,7 +15,7 @@ class m210323_074527_create_dashboard_table extends Migration
         $this->createTable('{{%dashboard}}', [
             'id' => $this->primaryKey(),
             'project_id' => $this->integer()->notNull(),
-            'text' => $this->string(),
+            'text' => $this->string()->notNull(),
             'position' => 'ENUM("todo", "doing", "done", "backlog")',
         ]);
 

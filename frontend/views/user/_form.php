@@ -13,7 +13,6 @@ use common\models\Tag;
 ?>
 
 <div class="user-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
@@ -24,15 +23,18 @@ use common\models\Tag;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file', ['options'=>['class'=>'col-sm']])->widget(\kartik\file\FileInput::classname(), [
+    <?= $form->field($model, 'file', ['options'=>['class'=>'col-lg-6']])->widget(\kartik\file\FileInput::classname(), [
         'pluginOptions' => [
+            'allowedFileExtensions'=> ['jpg','jpeg','png'],
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
             'dropZoneEnabled' => false,
-            'browseClass' => 'btn btn-primary btn-block',
+            'browseClass' => 'image btn btn-primary btn-block',
             'browseIcon' => '<i class="fas fa-camera"></i>',
-            'browseLabel' =>  'Выберите фото'
+            'browseLabel' =>  'Выберите фото',
+            'previewFileType' => 'image',
+            'maxFileSize' => ['1024'],
         ],
     ]) ?>
 
@@ -46,7 +48,7 @@ use common\models\Tag;
             'tokenSeparators' => [',', ' '],
             'maximumInputLength' => 10
         ],
-        ])->label('Tag Multiple');
+        ])->label('Теги');
     ?>
 
     <div class="form-group">

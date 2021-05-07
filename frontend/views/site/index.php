@@ -7,11 +7,6 @@ use common\widgets\vue\VueWidget;
 
 $this->title = 'GGPI-Projects';
 ?>
-<!--
-<div id="app"></div> -->
-
-<?//= VueWidget::widget(['component' => 'hello-world', 'props' => ['msg' => 'PAF']])?>
-<!-- Search -->
 <?= $this->render('_search', ['model' => $searchModel]); ?>
 
 <?= ListView::widget([

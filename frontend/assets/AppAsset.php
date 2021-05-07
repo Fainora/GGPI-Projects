@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/sidebar.css',
         'css/projects.css',
+        'css/user.css',
         'css/dashboard.css',
         'font/varelaround.css?family=Varela+Round:400,700'
     ];
