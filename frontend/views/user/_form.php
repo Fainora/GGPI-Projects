@@ -35,7 +35,7 @@ use common\models\Tag;
             'browseLabel' =>  'Выберите фото',
             'previewFileType' => 'image',
             'maxFileSize' => ['1024'],
-        ],
+        ], 
     ]) ?>
 
     <?= $form->field($model, 'tags_array')->widget(Select2::className(), [
@@ -50,6 +50,8 @@ use common\models\Tag;
         ],
         ])->label('Теги');
     ?>
+
+    <?= $form->field($model, 'note')->textarea(['rows' => '2']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

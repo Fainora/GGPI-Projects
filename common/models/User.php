@@ -58,12 +58,29 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['surname', 'name', 'email'], 'required'],
+            ['surname', 'trim'],
+            ['surname', 'required'],
+            ['surname', 'string', 'min' => 2, 'max' => 50],
+
+            ['name', 'trim'],
+            ['name', 'required'],
+            ['name', 'string', 'min' => 2, 'max' => 50],
+
+            ['patronymic', 'trim'],
+            ['patronymic', 'string', 'min' => 2, 'max' => 50],
+
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 100],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Этот адрес электронной почты уже занят.'],
+
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
             ['image', 'string', 'max' => 255],
+            ['note', 'string', 'max' => 100],
             [['file'], 'image', 'extensions' => 'png, jpg, jpeg'],
-            [['tags_array','members'], 'safe'],
+            [['tags_array','members'], 'safe'], 
         ];
     }
 
@@ -78,7 +95,8 @@ class User extends ActiveRecord implements IdentityInterface
             'smallImage' => 'Картинка',
             'tags_array' => 'Теги',
             'tagsAsString' => 'Теги',
-            'fullName' => 'Полное имя'
+            'fullName' => 'Полное имя',
+            'note' => 'Заметки'
         ];
     }
 
@@ -127,6 +145,28 @@ class User extends ActiveRecord implements IdentityInterface
             }
         }
         UserTag::deleteAll(['tag_id'=>$arr,'user_id' => $this->id]);
+    }
+
+    public function beforeDelete()
+    {
+        if(parent::beforeDelete()) {
+            $dir = Yii::getAlias('@images').'/projects/';
+            if(file_exists($dir.$this->image)) {
+                unlink($dir.$this->image);
+            }
+            foreach (self::IMAGES_SIZE as $size) {
+                $size_dir = $size[0].'x';
+                if($size[1] !== null) {
+                    $size_dir .= $size[1];
+                }
+                if(file_exists($dir.$this->image)) {
+                    unlink($dir.$size_dir.'/'.$this->image);
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getSmallImage() 

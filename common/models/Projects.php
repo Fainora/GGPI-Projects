@@ -26,6 +26,9 @@ class Projects extends \yii\db\ActiveRecord
     public $tags_array;
     public $members;
     public $file;
+    const IMAGES_SIZE = [
+        ['80','80'],
+    ];
 
     /**
      * {@inheritdoc}
@@ -138,6 +141,30 @@ class Projects extends \yii\db\ActiveRecord
             }
         }
         ProjectsTag::deleteAll(['tag_id'=>$arr,'project_id' => $this->id]);
+    }
+
+    public function beforeDelete()
+    {
+        if(parent::beforeDelete()) {
+            $dir = Yii::getAlias('@images').'/projects/';
+            if(file_exists($dir.$this->image)) {
+                unlink($dir.$this->image);
+            }
+            foreach (self::IMAGES_SIZE as $size) {
+                $size_dir = $size[0].'x';
+                if($size[1] !== null) {
+                    $size_dir .= $size[1];
+                }
+                if (!is_dir($dir . $size_dir . '/' . $this->image)) { 
+                    if (file_exists($dir . $size_dir . '/' . $this->image)) {
+                           unlink($dir . $size_dir . '/' . $this->image);
+                    }
+               }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getSmallImage() 

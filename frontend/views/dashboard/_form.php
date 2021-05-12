@@ -11,7 +11,7 @@ use yii\bootstrap4\ActiveForm;
 <div class="dashboard-form">
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'project_id')->textInput(['readonly' => true, 'value' => $project->id]) ?>
+    <?= $form->field($model, 'project_id')->label(false)->hiddenInput(['value' => $project->id]); ?>
 
     <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
 

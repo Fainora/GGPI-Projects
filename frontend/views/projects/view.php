@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
-    <?= Alert::widget() ?>
 </div>
 <div class="projects-view">
     <div class="btn-toolbar" role="toolbar">
@@ -73,17 +72,19 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php foreach ($members as $member): ?>
                 <?php if($project->id == $member->project->id): ?>
                     <li><?=Html::a($member->user->username, ['user/view', 'id' => $member->user->id]);?>
-                        <?=Html::a('<i class="fas fa-times"></i>', [
-                                'projects/kick', 'id' => $member->user->id, 'project_id' => $project->id
-                            ],
-                            [
-                                'data' => [
-                                    'confirm' => 'Удалить ' . $member->user->username . ' из проекта?',
-                                    'method' => 'post',
-                                    'pjax' => 1
+                        <?php if($model->creater->id == Yii::$app->user->identity->id): ?>
+                            <?=Html::a('<i class="fas fa-times"></i>', [
+                                    'projects/kick', 'id' => $member->user->id, 'project_id' => $project->id
                                 ],
-                            ]);
-                        ?>
+                                [
+                                    'data' => [
+                                        'confirm' => 'Удалить ' . $member->user->username . ' из проекта?',
+                                        'method' => 'post',
+                                        'pjax' => 1
+                                    ],
+                                ]);
+                            ?>
+                        <?php endif; ?>
                     </li>
                 <?php endif; ?>
             <?php endforeach;?>

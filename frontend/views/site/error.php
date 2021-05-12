@@ -4,13 +4,14 @@ use yii\helpers\Html;
 $this->title = $name;
 ?>
 <div class="site-error">
-    <div class="top">
-        <div class="top-inner">
-            <h1><?= $name; ?></h1>
-        </div>
+    <div class="error-top">
+        <h1><?= $name; ?></h1>
         <p><?= nl2br(Html::encode($message)); ?></p>
     </div>
 
-    <?= Html::a("На главную",  '/site/index', ['class' => 'error btn']) ?>
+    <div class="error-bottom">
+        <?= Html::a('<div class="arrow"><i class="fas fa-chevron-left"></i></div> На главную',  
+            '/site/index', ['class' => 'error btn']) ?>
+    </div>
 
 </div>

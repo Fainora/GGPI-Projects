@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = 'Заявки';
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
-    <?= Alert::widget() ?>
 </div>
 <?php foreach ($members as $member): ?>
     <?php Pjax::begin(); ?>

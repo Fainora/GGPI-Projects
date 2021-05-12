@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -11,10 +12,10 @@ $this->title = $model->username;
 ?>
 <div class="user-view">
     <?php if($model->id == Yii::$app->user->identity->id): ?>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <?= Html::a('Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Изменить пароль', ['site/request-password-reset'], ['class' => 'btn btn-secondary']) ?>
-            <?= Html::a('Удалить профиль', ['delete', 'id' => $model->id], [
+        <div class="group btn-group" role="group">
+            <?= Html::a('<i class="fas fa-edit"></i> Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-lock"></i> Изменить пароль', ['site/request-password-reset'], ['class' => 'btn btn-secondary']) ?>
+            <?= Html::a('<i class="fas fa-trash"></i> Удалить профиль', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
                     'data' => [
                         'confirm' => 'Вы уверены, что хотите удалить ваш аккаунт?',
@@ -23,11 +24,34 @@ $this->title = $model->username;
                 ]) ?>
         </div>
     <?php endif; ?>
-    <div class="top">
+    <div class="user-top">
+        <?php if($model->id == Yii::$app->user->identity->id): ?>
+            <?php
+                Modal::begin([
+                    'toggleButton' => [
+                        'label' => '<i class="fas fa-ellipsis-v"></i>',
+                        'tag' => 'button',
+                        'class' => 'point',
+                    ],
+                ]);
+                echo '<div class="btn-group-vertical" role="group">';
+                echo Html::a('<i class="fas fa-edit"></i> Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+                echo Html::a('<i class="fas fa-lock"></i> Изменить пароль', ['site/request-password-reset'], ['class' => 'btn btn-secondary']);
+                echo Html::a('<i class="fas fa-trash"></i> Удалить профиль', ['delete', 'id' => $model->id], [
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Вы уверены, что хотите удалить ваш аккаунт?',
+                            'method' => 'post',
+                        ],
+                    ]);
+                echo '</div>';
+                Modal::end();
+            ?>
+        <?php endif; ?>
         <?php ($model->image) ? $img = $model->image : $img = 'avatar.png';?>
         <?= Html::img("@web/uploads/user/80x80/$img", [
             'class'=>'user-img', 'align' => 'left']) ?>
-        <h1><?= Html::encode($this->title) ?></h1>
+        <h1><?= Html::encode($this->title); ?></h1>
         <div class="well">
             <?php foreach($tags as $one): ?>
                 <?php if($one->user_id == Yii::$app->user->identity->id):?>
@@ -35,20 +59,29 @@ $this->title = $model->username;
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        <div class="note">
+            <?php if(!$model->note): ?>
+                Здесь еще ничего не написано :(
+            <?php endif; ?>
+            <?= nl2br($model->note); ?>
+        </div>
     </div>
-    <hr>
-    <?php if($model->id == Yii::$app->user->identity->id): ?>
-        <h5>Ваши проекты: </h5>
+
+    <div class="user-projects">
+        <?= ($model->id == Yii::$app->user->identity->id) ? 
+            '<h5>Ваши проекты:</h5>' : '<h5>Проекты ' . $this->title . ':</h5>'; ?>
             <?php foreach($creater as $сurator): ?>
                 <?php if($сurator->user_id == Yii::$app->user->identity->id): ?>
                     <li><?= Html::a($сurator->title, ['projects/view', 'id' => $сurator->id]); ?></li>
                 <?php endif; ?>
             <?php endforeach; ?>
-        <h5>Проекты в которых вы состоите: </h5>
+        <br/>
+        <?= ($model->id == Yii::$app->user->identity->id) ? 
+        '<h5>Проекты в которых вы состоите:</h5>' : '<h5>Проекты в которых ' . $this->title . ' состоит:</h5>'; ?>
         <?php foreach($projects as $project): ?>
             <?php if(($project->user_id == Yii::$app->user->identity->id) && ($project->status == 2)): ?>
                 <li><?= Html::a($project->project->title, ['projects/view', 'id' => $project->project->id]); ?></li>
             <?php endif; ?>
         <?php endforeach; ?>
-    <?php endif; ?>
+    </div>
 </div>

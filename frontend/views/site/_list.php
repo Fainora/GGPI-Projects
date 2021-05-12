@@ -5,12 +5,12 @@ use yii\helpers\HtmlPurifier;
 use common\models\ProjectsUser;
 ?>
 
-<div class="card flex-sm-row box-shadow h-sm-250">
+<div class="project-card card flex-sm-row box-shadow h-sm-250">
     <?php
         ($model->image) ? $img = $model->image : $img = 'no_image.png';
         $count = ProjectsUser::find()->where(['status' => 2, 'project_id' => $model->id])->count();
     ?>
-    <?= Html::img("@web/uploads/projects/80x80/$img", [
+    <?= Html::img("@web/uploads/projects/$img", [
         'class'=>'project-img',
     ]) ?>
 

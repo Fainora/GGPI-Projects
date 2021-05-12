@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
-    <?= Alert::widget() ?>
 </div>
 <div class="projects-update">
 

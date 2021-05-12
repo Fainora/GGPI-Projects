@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = 'Доска';
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
-    <?= Alert::widget() ?>
 </div>
 <?// var_dump($projects['title']);?>
 <?php

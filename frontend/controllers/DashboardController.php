@@ -41,8 +41,9 @@ class DashboardController extends Controller
         $project = $this->findProject($id);
         $projects = Projects::find()->all();
         $dashboard = Dashboard::find()->all();
-        
-        if (!($project->isMember(Yii::$app->user->identity->id))) {
+
+        if (!($project->isMember(Yii::$app->user->identity->id)) && 
+            ($project->user_id != Yii::$app->user->identity->id)) {
             throw new ForbiddenHttpException('У вас нет прав просматривать данную доску');
         }
 
@@ -62,6 +63,7 @@ class DashboardController extends Controller
      */
     public function actionView($id)
     {
+        $model = new Dashboard();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

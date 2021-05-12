@@ -29,24 +29,24 @@ class SignupForm extends Model
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Это имя пользователя уже используется.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 2, 'max' => 50],
 
             ['surname', 'trim'],
             ['surname', 'required'],
-            ['surname', 'string', 'min' => 2, 'max' => 255],
+            ['surname', 'string', 'min' => 2, 'max' => 50],
 
             ['name', 'trim'],
             ['name', 'required'],
-            ['name', 'string', 'min' => 2, 'max' => 255],
+            ['name', 'string', 'min' => 2, 'max' => 50],
 
             ['patronymic', 'trim'],
-            ['patronymic', 'string', 'min' => 2, 'max' => 255],
+            ['patronymic', 'string', 'min' => 2, 'max' => 50],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'string', 'max' => 100],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Этот адрес электронной почты уже занят.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],

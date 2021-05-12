@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
         'css/projects.css',
         'css/user.css',
         'css/dashboard.css',
+        'css/error.css',
         'font/varelaround.css?family=Varela+Round:400,700'
     ];
     public $js = [
