@@ -64,6 +64,10 @@ class DashboardController extends Controller
     public function actionView($id)
     {
         $model = new Dashboard();
+      	if (!($project->isMember(Yii::$app->user->identity->id)) && 
+            ($project->user_id != Yii::$app->user->identity->id)) {
+            throw new ForbiddenHttpException('У вас нет прав просматривать данную доску');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -79,6 +83,10 @@ class DashboardController extends Controller
         $model = new Dashboard();
         $project = $this->findProject($id);
         $url = Url::previous();
+      	if (!($project->isMember(Yii::$app->user->identity->id)) && 
+            ($project->user_id != Yii::$app->user->identity->id)) {
+            throw new ForbiddenHttpException('У вас нет прав просматривать данную доску');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
@@ -103,6 +111,10 @@ class DashboardController extends Controller
         $model = $this->findModel($id);
         $project = $this->findProject($project_id);
         $url = Url::previous();
+      	if (!($project->isMember(Yii::$app->user->identity->id)) && 
+            ($project->user_id != Yii::$app->user->identity->id)) {
+            throw new ForbiddenHttpException('У вас нет прав просматривать данную доску');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->goBack();
@@ -121,12 +133,12 @@ class DashboardController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    /* public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(Yii::$app->request->referrer);
-    }
+    } */
 
     /**
      * Finds the Dashboard model based on its primary key value.

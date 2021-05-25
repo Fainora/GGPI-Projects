@@ -16,6 +16,7 @@ use yii\data\Pagination;
 use common\models\ProjectsTag;
 use common\models\UserTag;
 use common\models\Dashboard;
+use yii\web\HttpException;
 
 /**
  * ProjectsController implements the CRUD actions for Projects model.
@@ -96,7 +97,9 @@ class ProjectsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+		if (Yii::$app->user->getIdentity()->id != $model->user_id){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -115,7 +118,11 @@ class ProjectsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+      	$model = $this->findModel($id);
+      	if (Yii::$app->user->getIdentity()->id != $model->user_id){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
+        $model->delete();
 
         return $this->redirect(['site/index']);
     }
@@ -160,6 +167,7 @@ class ProjectsController extends Controller
             $member->save();
         } else {
             $member->delete();
+          	return $this->redirect(Yii::$app->request->referrer);
         }
 
         return $this->renderAjax('_member', [
@@ -174,6 +182,7 @@ class ProjectsController extends Controller
         $userId = Yii::$app->user->identity->id;
         $member = $project->isMember($userId);
         $member->delete();
+      	return $this->redirect(Yii::$app->request->referrer);
 
         return $this->renderAjax('_member', [
             'project' => $project,
@@ -208,6 +217,7 @@ class ProjectsController extends Controller
         if($member) {
             $member->status = 2;
             $member->save();
+          	return $this->redirect(Yii::$app->request->referrer);
         }
 
         return $this->renderAjax('_waitmember');
@@ -220,6 +230,7 @@ class ProjectsController extends Controller
         
         if($member) {
             $member->delete();
+          	return $this->redirect(Yii::$app->request->referrer);
         }
 
         return $this->renderAjax('_waitmember');

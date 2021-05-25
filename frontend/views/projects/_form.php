@@ -38,7 +38,7 @@ use \vova07\imperavi\Widget;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'max_number', ['options' => ['class'=>'col-sm']])->textInput() ?>
+    <?= $form->field($model, 'max_number', ['options' => ['class'=>'col-sm']])->textInput(['placeholder' => '1 - 15']) ?>
     </div>
 
     <?= $form->field($model, 'tags_array')->widget(Select2::className(), [
@@ -48,9 +48,10 @@ use \vova07\imperavi\Widget;
         'options' => ['placeholder' => 'Выберите теги ...', 'multiple' => true],
         'pluginOptions' => [
             'allowClear' => true,
+          	'allowSelect' => false,
             'tags' => true,
             'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 10
+            'maximumInputLength' => 10,
         ],
     ])->label('Теги');?>
 

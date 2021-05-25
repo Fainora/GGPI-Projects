@@ -27,7 +27,7 @@ class Projects extends \yii\db\ActiveRecord
     public $members;
     public $file;
     const IMAGES_SIZE = [
-        ['80','80'],
+        ['160','160'],
     ];
 
     /**
@@ -46,7 +46,8 @@ class Projects extends \yii\db\ActiveRecord
         return [
             [['title', 'max_number', 'description'], 'required'],
             [['description'], 'string'],
-            [['max_number', 'user_id'], 'integer'],
+            ['user_id', 'integer'],
+            ['max_number', 'integer', 'min' => 1, 'max' => 15],
             [['title', 'image'], 'string', 'max' => 255],
             [['title'], 'unique'],
             [['tags_array','members'], 'safe'],
@@ -97,8 +98,8 @@ class Projects extends \yii\db\ActiveRecord
                 if (file_exists($dir . $this->image)) {
                     unlink($dir . $this->image);
                 }
-                if (file_exists($dir . '80x80/' . $this->image)) {
-                    unlink($dir . '80x80/' . $this->image);
+                if (file_exists($dir . '160x160/' . $this->image)) {
+                    unlink($dir . '160x160/' . $this->image);
                 }
             };
             $this->image = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6) . 
@@ -106,12 +107,12 @@ class Projects extends \yii\db\ActiveRecord
             $file->saveAs($dir.$this->image);
             $imag = Yii::$app->image->load($dir.$this->image);
             $imag->background('#fff', 0);
-            $imag->resize('80','80',Image::INVERSE);
-            $imag->crop('80','80');
-            if(!file_exists($dir.'80x80/')){
-             FileHelper::createDirectory($dir.'80x80/');
+            $imag->resize('160','160',Image::INVERSE);
+            $imag->crop('160','160');
+            if(!file_exists($dir.'160x160/')){
+             FileHelper::createDirectory($dir.'160x160/');
             }
-            $imag->save($dir.'80x80/'.$this->image, 90);
+            $imag->save($dir.'160x160/'.$this->image, 90);
         }
         return parent::beforeSave($insert);
 
@@ -147,9 +148,12 @@ class Projects extends \yii\db\ActiveRecord
     {
         if(parent::beforeDelete()) {
             $dir = Yii::getAlias('@images').'/projects/';
-            if(file_exists($dir.$this->image)) {
-                unlink($dir.$this->image);
+            if (!is_dir($dir . $this->image)) { 
+              if (file_exists($dir . $this->image)) {
+                unlink($dir . $this->image);
+              }
             }
+ 
             foreach (self::IMAGES_SIZE as $size) {
                 $size_dir = $size[0].'x';
                 if($size[1] !== null) {
@@ -170,9 +174,9 @@ class Projects extends \yii\db\ActiveRecord
     public function getSmallImage() 
     {
         if($this->image) {
-            $path = str_replace('admin', '', Url::home(true)).'uploads/projects/80x80/'.$this->image;
+            $path = str_replace('admin', '', Url::home(true)).'uploads/projects/160x160/'.$this->image;
         } else {
-            $path = str_replace('admin', '', Url::home(true)).'uploads/projects/80x80/no_image.png';
+            $path = str_replace('admin', '', Url::home(true)).'uploads/projects/160x160/no_image.png';
         }
         return $path;
     }

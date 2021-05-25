@@ -22,17 +22,9 @@ AuthAsset::register($this);
 </head>
 
 <body>
-    <div class="login">
-        <div class="wrapper">
-            <div class="sign">
-                <?= Html::a('Авторизация', ['login'], ['class' => 'sign-in']); ?>
-                <?= Html::a('Регистрация', ['signup']); ?>
-            </div>
-            <?php $this->beginBody() ?>
-                <?= $content; ?>
-            <?php $this->endBody() ?>
-        </div>
-    </div>
+    <?php $this->beginBody() ?>
+        <?= $content; ?>
+    <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php $this->endPage() ?> 

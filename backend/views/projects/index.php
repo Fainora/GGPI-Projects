@@ -14,11 +14,8 @@ $this->title = 'Проекты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="projects-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Projects', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать проект', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

@@ -30,9 +30,65 @@
     border-bottom: 1px solid silver;
     margin-bottom: 1rem;
 }
-
+.projects-view h2 {
+  font-size: 1.8rem;
+}
 @media screen and (max-width: 640px) {
     .project-img {
         margin: 0.2rem 0 0 0.2rem;
     }
+  	.btn-toolbar {
+    	padding-bottom: 10px;
+  	}
+  .projects-view .card-body {
+ 	 word-wrap: break-word;
+  }
+  .projects-view h2 {
+  	font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+    .page h1{
+        font-size: 1.8rem;
+    }
+  	.projects-create, .projects-update label{
+        font-size: 1.2rem;
+    }
+  	.project-top .point {
+  		position: fixed;
+  	}
+  .projects-view .btn-group {
+  	display: contents;
+  }
+  .projects-view .btn-group .btn-danger{
+  	border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+  }
+  .projects-view .btn-group .btn-success{
+  	border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+  }
+  .projects-view h2 {
+  	font-size: 1.3rem;
+  }
+  .projects-update .btn-success{
+  	min-width: 100%;
+    text-align: center;
+  }
+  .projects-create .btn-success{
+  	min-width: 100%;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 320px) {
+    .projects-create h1{
+        font-size: 1.5rem;
+    }
+  .projects-view .project-img {
+    display: none;
+  }
+  .projects-view .card-body {
+    padding: 0.2rem !important;
+  }
 }

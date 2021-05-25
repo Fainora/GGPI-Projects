@@ -8,6 +8,7 @@ use common\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\HttpException;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -37,6 +38,9 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->getIdentity()->isAdmin()){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -52,6 +56,9 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        if (!Yii::$app->user->getIdentity()->isAdmin()){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -65,6 +72,9 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        if (!Yii::$app->user->getIdentity()->isAdmin()){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -85,6 +95,9 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (!Yii::$app->user->getIdentity()->isAdmin()){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,6 +117,9 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->getIdentity()->isAdmin()){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -122,6 +138,6 @@ class UserController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрошенная страница не существует.');
     }
 }

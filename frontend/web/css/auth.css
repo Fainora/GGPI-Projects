@@ -33,6 +33,18 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 40vw;
+    min-height: 60vh;
+    background: rgba(23, 50, 69, 0.3);
+    box-shadow: 0 0 5px rgba(23, 50, 69, 0.5);
+    overflow: auto;
+}
+
+.signup {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 50vw;
     min-height: 60vh;
     background: rgba(23, 50, 69, 0.3);
@@ -43,11 +55,6 @@ body {
 .wrapper {
     height: 100%;
     padding: 40px 65px 25px 65px;
-}
-
-.login a {
-    color: #808080;
-    margin-top: -20px;
 }
 
 .sign-btn {
@@ -173,6 +180,42 @@ h4 {
     top: 10px;
 }
 
+@media(max-width: 1920px) {
+    .login {
+        width: 30vw;
+        min-height: 55vh;
+    }
+    .form-login {
+        transform: translate(0, 55%);
+    }
+    .signup {
+        width: 50vw;
+        min-height: 70vh;
+    }
+    .signup .form {
+        margin-top: 50px;
+    }
+}
+@media(max-width: 1680px) {
+    .login {
+        width: 35vw;
+        min-height: 55vh;
+    }
+    .form-login {
+        transform: translate(0, 50%);
+    }
+}
+
+@media(max-width: 1366px) {
+    .login {
+        width: 40vw;
+        min-height: 55vh;
+    }
+    .form-login {
+        transform: translate(0, 50%);
+    }
+}
+
 @media(max-width: 1024px) {
     .login {
         width: 700px;
@@ -207,7 +250,7 @@ h4 {
     }
 
     .sign {
-        margin-top: 30px;
+        margin-top: 50px;
         display: flex;
         justify-content: space-between;
     }
@@ -248,6 +291,9 @@ h4 {
 }
 
 @media(max-width: 480px) {
+    .wrapper {
+      padding: 30px 40px;
+  	}
     .sign a{
         font-size: 18px;
     }

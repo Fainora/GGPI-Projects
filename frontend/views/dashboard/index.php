@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                                 'footer' => 'Переместить в колонку: ' .
                                 '<li class="none">' . Html::a('В процессе', ['doing','card_id' => $card->id], ['class' => 'unline']) . '</li>' .
                                 '<li class="none">' . Html::a('Готово', ['done','card_id' => $card->id], ['class' => 'unline']) . '</li>' .
-                                '<li class="none">' . Html::a('Backlog', ['backlog','card_id' => $card->id], ['class' => 'unline']) . '</li>'
+                                '<li class="none">' . Html::a('Ресурсы', ['backlog','card_id' => $card->id], ['class' => 'unline']) . '</li>'
                             ]);
                             echo $card->text;
                             Modal::end();
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                                 'footer' => 'Переместить в колонку: ' .
                                     '<li class="none">' . Html::a('Сделать', ['todo', 'card_id' => $card->id], ['class' => 'unline']) . '</li>' .
                                     '<li class="none">' . Html::a('Готово', ['done','card_id' => $card->id], ['class' => 'unline']) . '</li>' .
-                                    '<li class="none">' . Html::a('Backlog', ['backlog','card_id' => $card->id], ['class' => 'unline']) . '</li>'
+                                    '<li class="none">' . Html::a('Ресурсы', ['backlog','card_id' => $card->id], ['class' => 'unline']) . '</li>'
                             ]);
                             echo $card->text;
                             Modal::end();
@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                                 'footer' => 'Переместить в колонку: ' .
                                     '<li class="none">' . Html::a('Сделать', ['todo', 'card_id' => $card->id], ['class' => 'unline']) . '</li>' .    
                                     '<li class="none">' . Html::a('В процессе', ['doing','card_id' => $card->id], ['class' => 'unline']) . '</li>' .
-                                    '<li class="none">' . Html::a('Backlog', ['backlog','card_id' => $card->id], ['class' => 'unline']) . '</li>'
+                                    '<li class="none">' . Html::a('Ресурсы', ['backlog','card_id' => $card->id], ['class' => 'unline']) . '</li>'
                             ]);
                             echo $card->text;
                             Modal::end();
@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = 'Доска';
             <?php endforeach; ?>
         </div>
         <div class="dashboard-backlog card col-lg">
-            <div class="title">Backlog</div>
+            <div class="title">Ресурсы</div>
             <?php foreach($dashboard as $card): ?>
                 <?php if($id == $card->project_id): ?>
                     <?php if($card->position == 'backlog'):?>

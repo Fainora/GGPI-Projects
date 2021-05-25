@@ -28,11 +28,13 @@ use yii\helpers\Html;
                 <p><i class="fas fa-copy"></i><br/> <h5>Создать проект</h5></p>
             </a>
         </li>
+		<!--
         <li>
-            <a href="<?= Url::to(["site/contact"]);?>">
+            <a href="<?//= Url::to(["site/contact"]);?>">
                 <p><i class="fas fa-paper-plane"></i> <h5>Обратная связь</h5></p>
             </a>
         </li>
+		-->
         <li class="exit">
             <?= Html::a('<p><i class="fas fa-sign-out-alt"></i> <h5>Выход (' . 
                 Yii::$app->user->identity->username . ')</h5></p>', ['/site/logout'],

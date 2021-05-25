@@ -1,7 +1,7 @@
 <?php
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
-    //require __DIR__ . '/../../common/config/params-local.php',
+    require __DIR__ . '/../../common/config/params-local.php',
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
 );
@@ -13,6 +13,16 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'as access' => [
+        'class' => 'yii\filters\AccessControl',
+        'except' => ['site/login', 'site/error'],
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',           
@@ -44,26 +54,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                /*
-                '' => 'site/index',
-                '<_a:(login|logout)>' => 'users/default/<_a>', // sitename.ru/admin/login
-                
-                // Мои настройки для модуля User                
-                'users' => 'users/default/index',// sitename.ru/admin/users
-                'users/create' => 'users/default/create',// sitename.ru/admin/users/create
-                'users/<id:\d+>/<_a:[\w\-]+>' => 'users/default/<_a>', // sitename.ru/admin/users/1/update
-                */
             ],
             
         ],
-        /* AdminLTE 3
-        'view' => [
-            'theme' => [
-                'pathMap' => [
-                   '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
-                ],
-            ],
-       ],*/
     ],
     'params' => $params,
 ];

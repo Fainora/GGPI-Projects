@@ -10,7 +10,7 @@ $this->title = 'Создать проект';
 <div class="projects-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

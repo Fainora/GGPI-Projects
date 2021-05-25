@@ -1,19 +1,49 @@
 <?php
+use yii\helpers\Html;
 $this->title = 'Начальная страница';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6">
-            <?= \hail812\adminlte3\widgets\Alert::widget([
-                'type' => 'success',
-                'body' => '<h3>Congratulations!</h3>',
-            ]) ?>
-            <?= \hail812\adminlte3\widgets\Callout::widget([
-                'type' => 'danger',
-                'head' => 'I am a danger callout!',
-                'body' => 'There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.'
-            ]) ?>
+        <div class="col-lg-4">
+            <div class="small-box bg-gradient-success">
+                <div class="inner">
+                    <h3><?= count($user); ?></h3>
+                    <p>Пользователей</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <?= Html::a('Больше информации <i class="fas fa-arrow-circle-right"></i>', ['user/index'], 
+                    ['class' => 'small-box-footer']); ?>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3><?= count($projects); ?></h3>
+                    <p>Проектов создано</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <?= Html::a('Больше информации <i class="fas fa-arrow-circle-right"></i>', ['projects/index'], 
+                    ['class' => 'small-box-footer']); ?>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="small-box bg-teal">
+                <div class="inner">
+                    <h3><?= count($tags); ?></h3>
+                    <p>Тегов создано</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <?= Html::a('Больше информации <i class="fas fa-arrow-circle-right"></i>', ['tag/index'], 
+                    ['class' => 'small-box-footer']); ?>
+            </div>
         </div>
     </div>
 </div>

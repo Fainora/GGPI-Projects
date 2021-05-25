@@ -31,8 +31,13 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    const ROLE_USER = 1;
+    const ROLE_ADMIN = 10;
     public $file;
     public $tags_array;
+    const IMAGES_SIZE = [
+        ['160','160'],
+    ];
 
     /**
      * {@inheritdoc}
@@ -108,20 +113,20 @@ class User extends ActiveRecord implements IdentityInterface
                 if (file_exists($dir . $this->image)) {
                     unlink($dir . $this->image);
                 }
-                if (file_exists($dir . '80x80/' . $this->image)) {
-                    unlink($dir . '80x80/' . $this->image);
+                if (file_exists($dir . '160x160/' . $this->image)) {
+                    unlink($dir . '160x160/' . $this->image);
                 }
             };
             $this->image = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6) . '.' . $file->extension;
             $file->saveAs($dir.$this->image);
             $imag = Yii::$app->image->load($dir.$this->image);
             $imag->background('#fff', 0);
-            $imag->resize('80','80',Image::INVERSE);
-            $imag->crop('80','80');
-            if(!file_exists($dir.'80x80/')){
-             FileHelper::createDirectory($dir.'80x80/');
+            $imag->resize('160','160',Image::INVERSE);
+            $imag->crop('160','160');
+            if(!file_exists($dir.'160x160/')){
+             FileHelper::createDirectory($dir.'160x160/');
             }
-            $imag->save($dir.'80x80/'.$this->image, 90);
+            $imag->save($dir.'160x160/'.$this->image, 90);
            }
            return parent::beforeSave($insert);
     }
@@ -150,18 +155,23 @@ class User extends ActiveRecord implements IdentityInterface
     public function beforeDelete()
     {
         if(parent::beforeDelete()) {
-            $dir = Yii::getAlias('@images').'/projects/';
-            if(file_exists($dir.$this->image)) {
-                unlink($dir.$this->image);
+            $dir = Yii::getAlias('@images').'/user/';
+            if (!is_dir($dir . $this->image)) { 
+              if (file_exists($dir . $this->image)) {
+                unlink($dir . $this->image);
+              }
             }
+ 
             foreach (self::IMAGES_SIZE as $size) {
                 $size_dir = $size[0].'x';
                 if($size[1] !== null) {
                     $size_dir .= $size[1];
                 }
-                if(file_exists($dir.$this->image)) {
-                    unlink($dir.$size_dir.'/'.$this->image);
-                }
+                if (!is_dir($dir . $size_dir . '/' . $this->image)) { 
+                    if (file_exists($dir . $size_dir . '/' . $this->image)) {
+                           unlink($dir . $size_dir . '/' . $this->image);
+                    }
+               }
             }
             return true;
         } else {
@@ -172,9 +182,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function getSmallImage() 
     {
         if($this->image) {
-            $path = str_replace('admin.','',Url::home(true)).'uploads/user/80x80/'.$this->image;
+            $path = str_replace('admin.','',Url::home(true)).'uploads/user/160x160/'.$this->image;
         } else {
-            $path = str_replace('admin.','',Url::home(true)).'uploads/user/80x80/avatar.png';
+            $path = str_replace('admin.','',Url::home(true)).'uploads/user/160x160/avatar.png';
         }
         return $path;
     }
@@ -356,5 +366,29 @@ class User extends ActiveRecord implements IdentityInterface
     public function getFullName() 
     {
         return $this->surname . ' ' . $this->name . ' ' . $this->patronymic;
+    }
+
+    public static function roles()
+    {
+        return [
+            self::ROLE_USER => Yii::t('app', 'User'),
+            self::ROLE_ADMIN => Yii::t('app', 'Admin'),
+        ];
+    }
+
+    public function getRoleName(int $id)
+    {
+        $list = self::roles();
+        return $list[$id] ?? null;
+    }
+
+    public function isAdmin()
+    {
+        return ($this->role == self::ROLE_ADMIN);
+    }
+
+    public function isUser()
+    {
+        return ($this->role == self::ROLE_USER);
     }
 }

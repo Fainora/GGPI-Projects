@@ -7,6 +7,9 @@
 .user-top h1 {
     overflow-wrap: break-word;
 }
+.user-top .well {
+    min-height: 48px;
+}
 .user-img {
     border: 3px solid #657BE0;
     border-radius: 100%;
@@ -24,11 +27,16 @@
 .note {
     padding: 15px 0 10px 0;
 }
-.user-projects li{
-    list-style-type: none;
+
+.page #request-password-reset-form .sign-btn{
+	background-color: #6d7fcc;
+  	width: 20%;
+    text-align: center;
+    color: #fff
 }
-.user-projects li:before{
-    content: "⮞";
+
+.forgot{
+	display: none;
 }
 
 @media screen and (max-width: 640px) {
@@ -37,9 +45,15 @@
     }
 }
 @media screen and (max-width: 480px) {
+    .user-view {
+        padding: 0 10px;
+    }
     .user-view .btn {
         font-size: 0.9rem;
         padding: 0.75rem;
+    }
+  	.user-top {
+      padding-top: 10px;
     }
     .point {
         display: block;
@@ -53,6 +67,7 @@
         font-size: 1.3em;
         padding-top: 5px;
         right: 16px;
+        margin-top: -10px;
     }
     .group {
         display: none;
@@ -64,4 +79,14 @@
         font-size: 2rem;
         padding-right: 80px;
     }
+}
+@media screen and (max-width: 480px) {
+  .user-top h1 {
+        font-size: 1.5rem;
+        padding-right: 60px;
+    }
+  .user-update .btn-success{
+  	min-width: 100%;
+    text-align: center;
+  }
 }

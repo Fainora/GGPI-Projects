@@ -49,12 +49,12 @@ $this->title = $model->username;
             ?>
         <?php endif; ?>
         <?php ($model->image) ? $img = $model->image : $img = 'avatar.png';?>
-        <?= Html::img("@web/uploads/user/80x80/$img", [
+        <?= Html::img("@web/uploads/user/160x160/$img", [
             'class'=>'user-img', 'align' => 'left']) ?>
         <h1><?= Html::encode($this->title); ?></h1>
         <div class="well">
             <?php foreach($tags as $one): ?>
-                <?php if($one->user_id == Yii::$app->user->identity->id):?>
+                <?php if($one->user_id == $model->id):?>
                     <span class="badge badge-info"><?=$one->tag->title?></span>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -68,18 +68,27 @@ $this->title = $model->username;
     </div>
 
     <div class="user-projects">
-        <?= ($model->id == Yii::$app->user->identity->id) ? 
-            '<h5>Ваши проекты:</h5>' : '<h5>Проекты ' . $this->title . ':</h5>'; ?>
-            <?php foreach($creater as $сurator): ?>
-                <?php if($сurator->user_id == Yii::$app->user->identity->id): ?>
-                    <li><?= Html::a($сurator->title, ['projects/view', 'id' => $сurator->id]); ?></li>
+        <?= ($model->id == Yii::$app->user->identity->id) ? '<h5>Ваши проекты:</h5>' : '<h5>Проекты ' . $this->title . ':</h5>'; ?>
+            <?php if($count < 1): ?>
+                <?= ($model->id == Yii::$app->user->identity->id) ? 
+                    'Вы еще не создали проект' : 'Этот пользователь еще не создал проект'; ?>
+					<br/>
+			<?php endif; ?>
+            <?php foreach($creater as $project): ?>
+                <?php if($project->user_id == $model->id): ?>
+                    <li><?= Html::a($project->title, ['projects/view', 'id' => $project->id]); ?></li>
                 <?php endif; ?>
             <?php endforeach; ?>
         <br/>
         <?= ($model->id == Yii::$app->user->identity->id) ? 
         '<h5>Проекты в которых вы состоите:</h5>' : '<h5>Проекты в которых ' . $this->title . ' состоит:</h5>'; ?>
+        <?php if($user_projects < 1): ?>
+              <?= ($model->id == Yii::$app->user->identity->id) ? 
+                  'Вы еще не состоите ни в одном проекте' : 'Этот пользователь еще не состоит ни в одном проекте'; ?>
+              <br/>
+        <?php endif; ?>
         <?php foreach($projects as $project): ?>
-            <?php if(($project->user_id == Yii::$app->user->identity->id) && ($project->status == 2)): ?>
+            <?php if(($project->user_id == $model->id) && ($project->status == 2)): ?>
                 <li><?= Html::a($project->project->title, ['projects/view', 'id' => $project->project->id]); ?></li>
             <?php endif; ?>
         <?php endforeach; ?>

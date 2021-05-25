@@ -38,7 +38,7 @@ class Dashboard extends \yii\db\ActiveRecord
             [['position'], 'string'],
             [['text'], 'string', 'max' => 255],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Projects::className(), 'targetAttribute' => ['project_id' => 'id']],
-            [['project_id'], 'default', 'value' => $project->id],
+            [['project_id'], 'default'],
             [['position'], 'default', 'value' => 'todo'],
         ];
     }

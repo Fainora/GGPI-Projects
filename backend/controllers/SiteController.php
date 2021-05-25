@@ -2,10 +2,14 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\web\HttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\User;
+use common\models\Projects;
+use common\models\Tag;
 
 /**
  * Site controller
@@ -20,15 +24,22 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'rules' => [
+                'rules' => [ 
                     [
-                        'actions' => ['login', 'error'],
                         'allow' => true,
+                        'roles' => ['?'],
+                        'denyCallback' => function($rule, $action) {
+                            return $this->redirect(Url::toRoute(['/site/login']));
+                        }
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => [],
                         'allow' => true,
                         'roles' => ['@'],
+                        /*'matchCallback' => function ($rule, $action) {
+                            $user = Yii::$app->user->getIdentity();
+                            return $user->isAdmin();
+                        }*/
                     ],
                 ],
             ],
@@ -60,7 +71,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $user = User::find()->select(['id'])->all();
+        $projects = Projects::find()->select(['id'])->all();
+        $tags = Tag::find()->select(['id'])->all();
+      	if (!Yii::$app->user->getIdentity()->isAdmin()){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
+
+        return $this->render('index', [
+            'user' => $user,
+            'projects' => $projects,
+            'tags' => $tags,
+        ]);
     }
 
     /**

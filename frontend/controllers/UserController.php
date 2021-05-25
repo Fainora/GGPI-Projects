@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use common\models\Projects;
 use common\models\ProjectsUser;
 use common\models\UserTag;
+use yii\web\HttpException;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -51,15 +52,20 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+      	$model = $this->findModel($id);
         $creater = Projects::find()->all();
         $projects = ProjectsUser::find()->where(['status' => 2])->all();
+        $user_projects = ProjectsUser::find()->where(['status' => 2, 'user_id' => $model->id])->count();
         $tags = UserTag::find()->all();
+        $count = Projects::find()->where(['user_id' => $model->id])->count();
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'creater' => $creater,
             'projects' => $projects,
             'tags' => $tags,
+            'count' => $count,
+            'user_projects' => $user_projects,
         ]);
     }
 
@@ -92,6 +98,10 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
+      	if (Yii::$app->user->getIdentity()->id != $id){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
+      
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -110,6 +120,9 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+      	if (Yii::$app->user->getIdentity()->id != $id){
+            throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['site/index']);

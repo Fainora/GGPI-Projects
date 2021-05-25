@@ -11,27 +11,35 @@ use yii\helpers\Url;
 $this->title = 'Авторизация';
 ?>
 
-<div class="form-login">
-    <?php $form = ActiveForm::begin([
-            'fieldConfig' => [
-                'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",
-            ],
-        ]); ?>
-    
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Имя пользователя'])->label(false) ?>
-
-        <?= $form->field($model, 'password')->passwordInput(['placeholder' => "Пароль"])->label(false) ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить?') ?>
-
-        <div class="form-group btm">
-            <?= Html::submitButton('Войти', ['class' => 'sign-btn btn btn-md btn-block', 'name' => 'login-btn']) ?>
+<div class="login">
+    <div class="wrapper">
+        <div class="sign">
+            <?= Html::a('Авторизация', ['login'], ['class' => 'sign-in']); ?>
+            <?= Html::a('Регистрация', ['signup']); ?>
         </div>
 
-        <div class="sign forgot">
-            <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
-        </div>
+        <div class="form-login">
+            <?php $form = ActiveForm::begin([
+                    'fieldConfig' => [
+                        'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",
+                    ],
+                ]); ?>
+            
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Имя пользователя'])->label(false) ?>
 
-    <?php ActiveForm::end(); ?>
+                <?= $form->field($model, 'password')->passwordInput(['placeholder' => "Пароль"])->label(false) ?>
+
+                <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить?') ?>
+
+                <div class="form-group btm">
+                    <?= Html::submitButton('Войти', ['class' => 'sign-btn btn btn-md btn-block', 'name' => 'login-btn']) ?>
+                </div>
+
+                <div class="sign forgot">
+                    <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
+                </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
 </div>
-

@@ -10,7 +10,7 @@ use common\models\ProjectsUser;
         ($model->image) ? $img = $model->image : $img = 'no_image.png';
         $count = ProjectsUser::find()->where(['status' => 2, 'project_id' => $model->id])->count();
     ?>
-    <?= Html::img("@web/uploads/projects/$img", [
+    <?= Html::img("@web/uploads/projects/160x160/$img", [
         'class'=>'project-img',
     ]) ?>
 
