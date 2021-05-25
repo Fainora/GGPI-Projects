@@ -1,60 +1,16 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+Задача: "Разработать web-приложение для управления проектами". Отличие от других приложений в том, что ты можешь как сам создать проект и найти единомышленников, так и присоединиться в уже существующий проект.
+<p> Имеется доска в Trello: https://trello.com/b/GrjaNx9A/ggpi-projects </p>
+<p>Некоторые скриншоты:
+<img src="https://user-images.githubusercontent.com/45584502/119496413-84fd9780-bd74-11eb-9ea6-47482b27d9d0.png"></img>
+<img src="https://user-images.githubusercontent.com/45584502/119496486-96df3a80-bd74-11eb-95bf-c0eace16ff3f.png"></img>
+<img src="https://user-images.githubusercontent.com/45584502/119496528-a1013900-bd74-11eb-82f4-13a086c00136.png"></img>
+<img src="https://user-images.githubusercontent.com/45584502/119496564-a9597400-bd74-11eb-8f72-fbda376ab797.png"></img>
+<img src="https://user-images.githubusercontent.com/45584502/119496585-afe7eb80-bd74-11eb-9e8a-4909a8457c8f.png"></img>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
-
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
-
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
-
-DIRECTORY STRUCTURE
--------------------
-
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+Для установки проекта на сервер:
+1. Выгрузить проект
+2. Установить composer
+3. Создать бд
+4. Php версия <= 7.4 (Из-за Imagick)
+5. Настроить подключение к бд
