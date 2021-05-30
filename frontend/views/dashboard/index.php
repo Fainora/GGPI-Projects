@@ -1,7 +1,5 @@
 <?php
-use kartik\sortinput\SortableInput;
 use yii\bootstrap4\Breadcrumbs;
-use common\widgets\vue\VueWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\Modal;
@@ -32,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             Modal::begin([
                                 'title' =>  
                                     Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
-                                    Html::a('Удалить', ['delete', 'id' => $card->id],[
+                                    Html::a('Удалить', ['delete', 'id' => $card->id, 'project_id' => $card->project_id],[
                                         'class' => 'dash',
                                         'data' => [
                                             'method' => 'post',
@@ -64,7 +62,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             Modal::begin([
                                 'title' =>  
                                 Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
-                                    Html::a('Удалить', ['delete', 'id' => $card->id],[
+                                    Html::a('Удалить', ['delete', 'id' => $card->id, 'project_id' => $card->project_id],[
                                         'class' => 'dash',
                                         'data' => [
                                             'method' => 'post',
@@ -96,7 +94,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             Modal::begin([
                                 'title' =>  
                                 Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
-                                    Html::a('Удалить', ['delete', 'id' => $card->id],[
+                                    Html::a('Удалить', ['delete', 'id' => $card->id, 'project_id' => $card->project_id],[
                                         'class' => 'dash',
                                         'data' => [
                                             'method' => 'post',
@@ -128,7 +126,7 @@ $this->params['breadcrumbs'][] = 'Доска';
                             Modal::begin([
                                 'title' =>  
                                 Html::a('Редактировать', ['update', 'id' => $card->id, 'project_id' => $card->project_id], ['class' => 'dash']) . ' / ' .
-                                    Html::a('Удалить', ['delete', 'id' => $card->id],[
+                                    Html::a('Удалить', ['delete', 'id' => $card->id, 'project_id' => $card->project_id],[
                                         'class' => 'dash',
                                         'data' => [
                                             'method' => 'post',
