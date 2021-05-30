@@ -94,6 +94,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'surname' => 'Фамилия',
             'name' => 'Имя',
+            'patronymic' => 'Отчество',
             'email' => 'Email',
             'image' => 'Картинка',
             'file' => 'Картинка',
