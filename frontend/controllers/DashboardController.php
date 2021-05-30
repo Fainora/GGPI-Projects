@@ -133,12 +133,17 @@ class DashboardController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    /* public function actionDelete($id)
+    public function actionDelete($id, $project_id)
     {
+      	$project = $this->findProject($project_id);
+      	if (!($project->isMember(Yii::$app->user->identity->id)) && 
+            ($project->user_id != Yii::$app->user->identity->id)) {
+            throw new ForbiddenHttpException('У вас нет прав просматривать данную доску');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(Yii::$app->request->referrer);
-    } */
+    }
 
     /**
      * Finds the Dashboard model based on its primary key value.
