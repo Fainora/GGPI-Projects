@@ -15,6 +15,8 @@ use common\models\Tag;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

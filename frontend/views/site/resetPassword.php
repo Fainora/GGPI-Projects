@@ -1,21 +1,15 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\ResetPasswordForm */
+/** @var yii\web\View $this */
+/** @var yii\bootstrap4\ActiveForm $form */
+/** @var \frontend\models\ResetPasswordForm $model */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Reset password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="container">
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-    <?= Alert::widget() ?>
-</div>
 <div class="site-reset-password">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-info']) ?>
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>

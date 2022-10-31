@@ -1,13 +1,14 @@
 <?php
-use yii\widgets\ListView;
-use yii\widgets\LinkPager;
-use common\widgets\vue\VueWidget;
 
-/* @var $this yii\web\View */
+/** @var yii\web\View $this */
+
+use yii\widgets\LinkPager;
+use yii\widgets\ListView;
 
 $this->title = 'GGPI-Projects';
+
+// $this->render('_search', ['model' => $searchModel]);
 ?>
-<?= $this->render('_search', ['model' => $searchModel]); ?>
 
 <?= ListView::widget([
         'dataProvider' => $dataProvider,
@@ -22,3 +23,4 @@ $this->title = 'GGPI-Projects';
         ],
     ]);
  ?> 
+

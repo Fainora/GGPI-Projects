@@ -5,7 +5,6 @@ use yii\bootstrap4\ActiveForm;
 use \kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use \common\models\Tag;
-use \vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Projects */

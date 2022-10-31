@@ -38,6 +38,7 @@ class TagController extends Controller
     {
         $searchModel = new TagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
         if (!Yii::$app->user->getIdentity()->isAdmin()){
             throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
         }
@@ -73,6 +74,7 @@ class TagController extends Controller
     public function actionCreate()
     {
         $model = new Tag();
+        
         if (!Yii::$app->user->getIdentity()->isAdmin()){
             throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
         }

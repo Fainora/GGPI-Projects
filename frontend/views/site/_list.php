@@ -16,9 +16,10 @@ use common\models\ProjectsUser;
 
     <div class="card-body">
         <div class="d-flex w-100 justify-content-between">
-            <a href="<?= Url::toRoute(['../projects/view', 'id'=>$model->id]);?>">
-                <p class="project-title mb-1"><?= Html::encode($model->title) ?></p>
-            </a>
+            <?= Html::a('<p>'.Html::encode($model->title).'</p>', 
+                ['projects/view', 'id' => $model->id],
+                ['class' => 'project-title mb-1']); 
+            ?>
             <small>
                 <?= $count ?>/<?= $model->max_number ?> <i class="fas fa-user"></i>
             </small>

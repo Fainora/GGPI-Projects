@@ -1,42 +1,38 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/** @var yii\web\View $this */
+/** @var yii\bootstrap4\ActiveForm $form */
+/** @var \common\models\LoginForm $model */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Url;
 
-$this->title = 'Авторизация';
+$this->title = 'Login';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="site-login">
+    <h1><?= Html::encode($this->title) ?></h1>
 
-<div class="login">
-    <div class="wrapper">
-        <div class="sign">
-            <?= Html::a('Авторизация', ['login'], ['class' => 'sign-in']); ?>
-            <?= Html::a('Регистрация', ['signup']); ?>
-        </div>
+    <p>Для входа заполните следующие поля:</p>
 
-        <div class="form-login">
-            <?php $form = ActiveForm::begin([
-                    'fieldConfig' => [
-                        'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{endWrapper}",
-                    ],
-                ]); ?>
-            
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Имя пользователя'])->label(false) ?>
+    <div class="row">
+        <div class="col-lg-5">
+            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'password')->passwordInput(['placeholder' => "Пароль"])->label(false) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить?') ?>
+                <?= $form->field($model, 'password')->passwordInput() ?>
 
-                <div class="form-group btm">
-                    <?= Html::submitButton('Войти', ['class' => 'sign-btn btn btn-md btn-block', 'name' => 'login-btn']) ?>
+                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
+                <div class="my-1 mx-0" style="color:#999;">
+                    Если вы забыли пароль, вы можете <?= Html::a('сбросить его', ['site/request-password-reset']) ?>.
+                    <br>
+                    <?= Html::a('Регистрация', ['site/signup']) ?>
                 </div>
 
-                <div class="sign forgot">
-                    <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
+                <div class="form-group">
+                    <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
