@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -10,7 +11,7 @@ use yii\helpers\Html;
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Home</a>
+            <a href="<?= Url::home()?>" class="nav-link">Home</a>
         </li>
     </ul>
 
@@ -24,11 +25,5 @@ use yii\helpers\Html;
                 <span class="d-none d-md-inline"><?= Yii::$app->user->identity->username ?></span>
             </div>
         </li>
-        <!--
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-                    class="fas fa-th-large"></i></a>
-        </li>
-        -->
     </ul>
 </nav>

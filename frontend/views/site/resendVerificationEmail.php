@@ -1,20 +1,15 @@
 <?php
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\ResetPasswordForm */
 
-use yii\helpers\Html;
+/** @var yii\web\View$this  */
+/** @var yii\bootstrap4\ActiveForm $form */
+/** @var \frontend\models\ResetPasswordForm $model */
+
+use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Resend verification email';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="container">
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-    <?= Alert::widget() ?>
-</div>
 <div class="site-resend-verification-email">
     <h1><?= Html::encode($this->title) ?></h1>
 

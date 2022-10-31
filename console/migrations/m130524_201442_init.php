@@ -15,31 +15,33 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
-            'surname' => $this->string()->notNull(),
-            'name' => $this->string()->notNull(),
+            'surname' => $this->string(),
+            'name' => $this->string(),
             'patronymic' => $this->string(),
-            'role' => $this->smallInteger()->defaultValue(1));
+            'role' => $this->smallInteger()->defaultValue(1),
             'email' => $this->string()->notNull()->unique(),
-            'auth_key' => $this->string()->notNull(),
+            'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
-
+            
+            'image' => $this->string(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'image' => $this->string(),
         ], $tableOptions);
 
         $password_hash = Yii::$app->getSecurity()->generatePasswordHash('123456');
         $auth_key = Yii::$app->security->generateRandomString();
         $time = time();
         $this->insert('{{%user}}', [
+            'id' => '1',
             'username' => 'Admin',
             'surname' => 'Admin',
             'name' => 'Admin',
+            'role' => '10',
             'email' => 'admin@mail.ru',
-            'password_hash' => $password_hash,
             'auth_key' => $auth_key,
+            'password_hash' => $password_hash,
             'created_at' => $time,
             'updated_at' => $time,
         ]);

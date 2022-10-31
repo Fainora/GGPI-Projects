@@ -1,20 +1,20 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap4\ActiveForm;
 ?>
 <div class="card">
     <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
 
-        <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
+        <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'login-form']) ?>
 
         <?= $form->field($model,'username', [
             'options' => ['class' => 'form-group has-feedback'],
             'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div>',
             'template' => '{beginWrapper}{input}{error}{endWrapper}',
-            'wrapperOptions' => ['class' => 'input-group mb-3'],
+            'wrapperOptions' => ['class' => 'input-group mb-3']
         ])
             ->label(false)
-            ->textInput(['placeholder' => 'Логин']) ?>
+            ->textInput(['placeholder' => $model->getAttributeLabel('username')]) ?>
 
         <?= $form->field($model, 'password', [
             'options' => ['class' => 'form-group has-feedback'],
@@ -23,7 +23,7 @@ use yii\bootstrap4\ActiveForm;
             'wrapperOptions' => ['class' => 'input-group mb-3']
         ])
             ->label(false)
-            ->passwordInput(['placeholder' => 'Пароль']) ?>
+            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
         <div class="row">
             <div class="col-8">
@@ -33,13 +33,32 @@ use yii\bootstrap4\ActiveForm;
                         'class' => ''
                     ],
                     'uncheck' => null
-                ])->label('Запомнить?') ?>
+                ]) ?>
             </div>
             <div class="col-4">
-                <?= Html::submitButton('Войти', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::submitButton('Sign In', ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
 
-        <?php ActiveForm::end(); ?>
+        <?php \yii\bootstrap4\ActiveForm::end(); ?>
+
+        <div class="social-auth-links text-center mb-3">
+            <p>- OR -</p>
+            <a href="#" class="btn btn-block btn-primary">
+                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+            </a>
+            <a href="#" class="btn btn-block btn-danger">
+                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+            </a>
+        </div>
+        <!-- /.social-auth-links -->
+
+        <p class="mb-1">
+            <a href="forgot-password.html">I forgot my password</a>
+        </p>
+        <p class="mb-0">
+            <a href="register.html" class="text-center">Register a new membership</a>
+        </p>
     </div>
+    <!-- /.login-card-body -->
 </div>

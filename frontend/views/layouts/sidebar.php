@@ -4,7 +4,6 @@ use yii\bootstrap4\Nav;
 use yii\helpers\Html;
 ?>
 <!-- Sidebar  -->
-<!-- <nav id="sidebar" class="active"> -->
 <nav id="sidebar">
     <div class="sidebar-header">
         <a href="/">
@@ -28,17 +27,15 @@ use yii\helpers\Html;
                 <p><i class="fas fa-copy"></i><br/> <h5>Создать проект</h5></p>
             </a>
         </li>
-		<!--
-        <li>
-            <a href="<?//= Url::to(["site/contact"]);?>">
-                <p><i class="fas fa-paper-plane"></i> <h5>Обратная связь</h5></p>
-            </a>
-        </li>
-		-->
         <li class="exit">
+            <?php if (Yii::$app->user->isGuest): ?>
+            <?= Html::a('<p><h5>Войти</h5></p>', 
+                ['/site/login']); ?>
+            <?php else: ?>
             <?= Html::a('<p><i class="fas fa-sign-out-alt"></i> <h5>Выход (' . 
                 Yii::$app->user->identity->username . ')</h5></p>', ['/site/logout'],
                 ['data' => ['method' => 'post']]); ?>
+            <?php endif; ?>
         </li>
     </ul>
 </nav>

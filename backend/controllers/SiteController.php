@@ -1,15 +1,17 @@
 <?php
+
 namespace backend\controllers;
 
-use Yii;
-use yii\web\HttpException;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use common\models\LoginForm;
-use common\models\User;
 use common\models\Projects;
 use common\models\Tag;
+use common\models\User;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\web\HttpException;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -23,28 +25,21 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [ 
+                'class' => AccessControl::class,
+                'rules' => [
                     [
+                        'actions' => ['login', 'error'],
                         'allow' => true,
-                        'roles' => ['?'],
-                        'denyCallback' => function($rule, $action) {
-                            return $this->redirect(Url::toRoute(['/site/login']));
-                        }
                     ],
                     [
-                        'actions' => [],
+                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
-                        /*'matchCallback' => function ($rule, $action) {
-                            $user = Yii::$app->user->getIdentity();
-                            return $user->isAdmin();
-                        }*/
                     ],
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -59,7 +54,7 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => \yii\web\ErrorAction::class,
             ],
         ];
     }
@@ -71,24 +66,21 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $user = User::find()->select(['id'])->all();
-        $projects = Projects::find()->select(['id'])->all();
-        $tags = Tag::find()->select(['id'])->all();
+        $user = User::find()->select(['id'])->count();
+        $projects = Projects::find()->select(['id'])->count();
+        $tags = Tag::find()->select(['id'])->count();
+        
       	if (!Yii::$app->user->getIdentity()->isAdmin()){
             throw new HttpException(403, Yii::t('app', 'Вам не разрешено выполнять это действие.'));
         }
 
-        return $this->render('index', [
-            'user' => $user,
-            'projects' => $projects,
-            'tags' => $tags,
-        ]);
+        return $this->render('index', compact('user', 'projects', 'tags'));
     }
 
     /**
      * Login action.
      *
-     * @return string
+     * @return string|Response
      */
     public function actionLogin()
     {
@@ -101,19 +93,19 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
-            $model->password = '';
-
-            return $this->render('login', [
-                'model' => $model,
-            ]);
         }
+
+        $model->password = '';
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     /**
      * Logout action.
      *
-     * @return string
+     * @return Response
      */
     public function actionLogout()
     {

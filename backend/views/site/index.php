@@ -9,7 +9,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col-lg-4">
             <div class="small-box bg-gradient-success">
                 <div class="inner">
-                    <h3><?= count($user); ?></h3>
+                    <h3><?= $user; ?></h3>
                     <p>Пользователей</p>
                 </div>
                 <div class="icon">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col-lg-4">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3><?= count($projects); ?></h3>
+                    <h3><?= $projects; ?></h3>
                     <p>Проектов создано</p>
                 </div>
                 <div class="icon">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col-lg-4">
             <div class="small-box bg-teal">
                 <div class="inner">
-                    <h3><?= count($tags); ?></h3>
+                    <h3><?= $tags; ?></h3>
                     <p>Тегов создано</p>
                 </div>
                 <div class="icon">

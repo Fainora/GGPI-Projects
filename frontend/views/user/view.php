@@ -25,29 +25,6 @@ $this->title = $model->username;
         </div>
     <?php endif; ?>
     <div class="user-top">
-        <?php if($model->id == Yii::$app->user->identity->id): ?>
-            <?php
-                Modal::begin([
-                    'toggleButton' => [
-                        'label' => '<i class="fas fa-ellipsis-v"></i>',
-                        'tag' => 'button',
-                        'class' => 'point',
-                    ],
-                ]);
-                echo '<div class="btn-group-vertical" role="group">';
-                echo Html::a('<i class="fas fa-edit"></i> Редактировать профиль', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
-                echo Html::a('<i class="fas fa-lock"></i> Изменить пароль', ['site/request-password-reset'], ['class' => 'btn btn-secondary']);
-                echo Html::a('<i class="fas fa-trash"></i> Удалить профиль', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => 'Вы уверены, что хотите удалить ваш аккаунт?',
-                            'method' => 'post',
-                        ],
-                    ]);
-                echo '</div>';
-                Modal::end();
-            ?>
-        <?php endif; ?>
         <?php ($model->image) ? $img = $model->image : $img = 'avatar.png';?>
         <?= Html::img("@web/uploads/user/160x160/$img", [
             'class'=>'user-img', 'align' => 'left']) ?>

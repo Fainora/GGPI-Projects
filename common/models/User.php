@@ -63,12 +63,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'string', 'min' => 2, 'max' => 50],
+
             ['surname', 'trim'],
-            ['surname', 'required'],
             ['surname', 'string', 'min' => 2, 'max' => 50],
 
             ['name', 'trim'],
-            ['name', 'required'],
             ['name', 'string', 'min' => 2, 'max' => 50],
 
             ['patronymic', 'trim'],
@@ -92,6 +94,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
+            'username' => 'Логин',
             'surname' => 'Фамилия',
             'name' => 'Имя',
             'patronymic' => 'Отчество',
