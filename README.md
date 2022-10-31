@@ -1,18 +1,17 @@
-"Разработка web-приложения для управления проектами". 
+<h2>"Разработка web-приложения для управления проектами"</h2>
 <p>Отличие от других приложений в том, что ты можешь как сам создать проект и найти единомышленников, так и присоединиться в уже существующий проект.</p>
 
 <p>Некоторые скриншоты:
   
-<img src="https://user-images.githubusercontent.com/45584502/119496413-84fd9780-bd74-11eb-9ea6-47482b27d9d0.png"></img>
-<img src="https://user-images.githubusercontent.com/45584502/119496486-96df3a80-bd74-11eb-95bf-c0eace16ff3f.png"></img>
-<img src="https://user-images.githubusercontent.com/45584502/119496528-a1013900-bd74-11eb-82f4-13a086c00136.png"></img>
-<img src="https://user-images.githubusercontent.com/45584502/119496564-a9597400-bd74-11eb-8f72-fbda376ab797.png"></img>
-<img src="https://user-images.githubusercontent.com/45584502/119496585-afe7eb80-bd74-11eb-9e8a-4909a8457c8f.png"></img>
+![1](https://user-images.githubusercontent.com/45584502/199101907-f80f371a-1638-4ef4-a447-95a098c8a688.png)
+![2](https://user-images.githubusercontent.com/45584502/199101911-c693044e-62fd-4d48-a609-de5e7f9f36da.png)
+![3](https://user-images.githubusercontent.com/45584502/199101916-f61cb0f7-0811-4a8c-83f1-b667f1ea2f35.png)
+![4](https://user-images.githubusercontent.com/45584502/199101924-a55ae2a4-0356-4601-ab83-76d811b51fd1.png)
 
-
-Для установки проекта на сервер:
+Для установки проекта на сервер:  
+Версия PHP 7.4  
 1. Выгрузить проект
-2. Установить composer
-3. Создать бд
-4. Php версия 7.4
-5. Настроить подключение к бд
+2. php init
+3. composer update
+4. Настроить подключение к БД в common/config/main-local.php
+5. yii migrate
